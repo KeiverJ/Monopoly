@@ -15,12 +15,28 @@ public class Casilla extends JPanel {
 
     int numero;
     private String nombre;
-    String descripcion;
     JLabel etiquetaNombre;
     static int totalCasillas = 0;
     private int precio;
     private int precioAlquiler;
     private List<Jugador> jugadoresEnCasilla = new ArrayList<>();
+    private Jugador propietario;
+    private boolean alquilerPagado = false;
+
+    public Casilla(int xCoord, int yCoord, int width, int height, String etiqueta) {
+        numero = totalCasillas;
+        totalCasillas++;
+        setBorder(new LineBorder(new Color(0, 0, 0)));
+        setBounds(xCoord, yCoord, width, height);
+        nombre = etiqueta;
+        this.setLayout(new BorderLayout());
+        etiquetaNombre = new JLabel("<html><div style='text-align: center;'>" + etiqueta + "<br></div></html>");
+        etiquetaNombre.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+        etiquetaNombre.setHorizontalAlignment(SwingConstants.CENTER);
+        etiquetaNombre.setVerticalAlignment(SwingConstants.CENTER);
+
+        this.add(etiquetaNombre, BorderLayout.CENTER);
+    }
 
     public void setPrecioAlquiler(int precioAlquiler) {
         this.precioAlquiler = precioAlquiler;
@@ -42,6 +58,26 @@ public class Casilla extends JPanel {
         return nombre;
     }
 
+    public int getNumero() {
+        return numero;
+    }
+
+    public Jugador getPropietario() {
+        return propietario;
+    }
+
+    public void setPropietario(Jugador propietario) {
+        this.propietario = propietario;
+    }
+
+    public boolean isAlquilerPagado() {
+        return alquilerPagado;
+    }
+
+    public void setAlquilerPagado(boolean pagado) {
+        alquilerPagado = pagado;
+    }
+
     public void agregarJugador(Jugador jugador) {
         if (!jugadoresEnCasilla.contains(jugador)) {
             jugadoresEnCasilla.add(jugador);
@@ -54,21 +90,6 @@ public class Casilla extends JPanel {
             jugadoresEnCasilla.remove(jugador);
             repaint();
         }
-    }
-
-    public Casilla(int xCoord, int yCoord, int width, int height, String etiqueta) {
-        numero = totalCasillas;
-        totalCasillas++;
-        setBorder(new LineBorder(new Color(0, 0, 0)));
-        setBounds(xCoord, yCoord, width, height);
-        nombre = etiqueta;
-        this.setLayout(new BorderLayout());
-        etiquetaNombre = new JLabel("<html><div style='text-align: center;'>" + etiqueta + "<br></div></html>");
-        etiquetaNombre.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
-        etiquetaNombre.setHorizontalAlignment(SwingConstants.CENTER);
-        etiquetaNombre.setVerticalAlignment(SwingConstants.CENTER);
-
-        this.add(etiquetaNombre, BorderLayout.CENTER);
     }
 
     public void paintComponent(Graphics g) {
@@ -96,13 +117,4 @@ public class Casilla extends JPanel {
         }
     }
 
-    private boolean alquilerPagado = false;
-
-    public boolean isAlquilerPagado() {
-        return alquilerPagado;
-    }
-
-    public void setAlquilerPagado(boolean pagado) {
-        alquilerPagado = pagado;
-    }
 }

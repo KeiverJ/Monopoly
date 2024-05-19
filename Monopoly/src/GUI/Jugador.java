@@ -128,13 +128,9 @@ public class Jugador {
                 Jugador propietario = panelTablero.obtenerJugadorPorNumero(propietarioNumero);
                 this.restarDinero(precioAlquiler);
                 propietario.sumarDinero(precioAlquiler);
-                System.out.println("Jugador " + this.getNombre() + " pago $" + precioAlquiler + " de renta a " + propietario.getNombre());
-            } else {
-                System.out.println("Estás en tu propia propiedad.");
+                JOptionPane.showMessageDialog(panelTablero, "Jugador " + this.getNombre() + " pago $" + precioAlquiler + " de renta a " + propietario.getNombre());
             }
-        } else {
-            System.out.println("Esta casilla no tiene propietario.");
-        }
+        } 
     }
 
     static HashMap<Integer, Integer> registroPropiedad = new HashMap<>();

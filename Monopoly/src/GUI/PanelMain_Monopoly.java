@@ -330,8 +330,6 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
     }//GEN-LAST:event_panelFondoMousePressed
 
     private void lblIniciarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIniciarMousePressed
-        //int xInicio = tablero.todasLasCasillas.get(0).getX();
-        //int yInicio = tablero.todasLasCasillas.get(0).getY();
 
         Jugador jugador1 = new Jugador(txtJugador1.getText(), 1, Color.BLACK, 730, 730);
         Jugador jugador2 = new Jugador(txtJugador2.getText(), 2, Color.BLUE, 730, 730);

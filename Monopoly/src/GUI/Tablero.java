@@ -107,7 +107,7 @@ public class Tablero extends JLayeredPane {
 
         ImageIcon monopolyIcon = new ImageIcon(getClass().getResource("/resources/logoMonopoly.png"));
         JLabel lblMonopolyImage = new JLabel(monopolyIcon);
-        lblMonopolyImage.setBounds(-80, 10, 900, 700); 
+        lblMonopolyImage.setBounds(-80, 10, 900, 700);
 
         Image image = monopolyIcon.getImage();
         BufferedImage rotatedImage = rotarImagen(image, -45);
@@ -172,9 +172,13 @@ public class Tablero extends JLayeredPane {
 
         jugador.setX(nuevaCasilla.getX() + nuevaCasilla.getWidth() / 2 - 10);
         jugador.setY(nuevaCasilla.getY() + nuevaCasilla.getHeight() / 2 - 10);
-        
-        
 
         actualizarJugadores();
+        Jugador jugadorActual = panelTablero.getJugadorActual();
+
+        Casilla casillaActual = todasLasCasillas.get(jugadorActual.getPosicion());
+        jugadorActual.pagarRentaEnCasilla(casillaActual.numero, casillaActual.getPrecioAlquiler());
+        panelTablero.actualizarDescripcionJugadorActual();
+
     }
 }
