@@ -337,8 +337,8 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
         Jugador jugador2 = new Jugador(txtJugador2.getText(), 2, Color.BLUE, 730, 730);
         Jugador jugador3 = new Jugador(txtJugador3.getText(), 3, Color.CYAN, 730, 730);
         Jugador jugador4 = new Jugador(txtJugador4.getText(), 4, Color.MAGENTA, 730, 730);
-        Jugador jugador5 = new Jugador(txtJugador3.getText(), 5, Color.ORANGE, 730, 730);
-        Jugador jugador6 = new Jugador(txtJugador4.getText(), 6, Color.LIGHT_GRAY, 730, 730);
+        Jugador jugador5 = new Jugador(txtJugador5.getText(), 5, Color.ORANGE, 730, 730);
+        Jugador jugador6 = new Jugador(txtJugador6.getText(), 6, Color.LIGHT_GRAY, 730, 730);
 
         List<Jugador> jugadores = new ArrayList<>();
         List<Integer> posicionesJugadores = new ArrayList<>();
@@ -365,7 +365,7 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
         }
         if (!txtJugador6.getText().isEmpty()) {
             jugadores.add(jugador6);
-            posicionesJugadores.add(5);
+            posicionesJugadores.add(6);
         }
 
         if (jugadores.size() >= 2) {

@@ -20,6 +20,9 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
 
     public PanelTablero_Monopoly(List<Jugador> jugadores, List<Integer> posicionesJugadores) {
         this.jugadores = jugadores;
+        for (Jugador jugador : jugadores) {
+            jugador.setPanelTablero(this);
+        }
         setUndecorated(true);
         initComponents();
         init2();
@@ -27,8 +30,6 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         panelFondo.setOpaque(false);
         setBackground(new Color(0, 0, 0, 0));
-        asignarNombres(jugadores);
-
     }
 
     public List<Jugador> getJugadores() {
@@ -44,34 +45,6 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         panelTablero.add(tablero, BorderLayout.CENTER);
     }
 
-    private void asignarNombres(List<Jugador> jugadores) {
-        for (int i = 0; i < jugadores.size(); i++) {
-            Jugador jugador = jugadores.get(i);
-            switch (i) {
-                case 0:
-                    lblNombreJ1.setText(jugador.getNombre());
-                    break;
-                case 1:
-                    lblNombreJ2.setText(jugador.getNombre());
-                    break;
-                case 2:
-                    lblNombreJ3.setText(jugador.getNombre());
-                    break;
-                case 3:
-                    lblNombreJ4.setText(jugador.getNombre());
-                    break;
-                case 4:
-                    lblNombreJ5.setText(jugador.getNombre());
-                    break;
-                case 5:
-                    lblNombreJ6.setText(jugador.getNombre());
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -79,25 +52,18 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         panelFondo = new modelo.PanelRedondeado();
         lblCierre = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        panelBoton1 = new javax.swing.JPanel();
-        lblTerminarPartida = new javax.swing.JLabel();
-        panelBoton3 = new javax.swing.JPanel();
+        panelBoton = new javax.swing.JPanel();
         lblLanzarDado = new javax.swing.JLabel();
-        lblDado = new javax.swing.JLabel();
-        jpanelReiniciar = new javax.swing.JPanel();
-        lblReiniciar = new javax.swing.JLabel();
-        lblNombreJ3 = new javax.swing.JLabel();
-        lblNombreJ4 = new javax.swing.JLabel();
-        Ficha4 = new javax.swing.JLabel();
-        Ficha3 = new javax.swing.JLabel();
-        lblNombreJ1 = new javax.swing.JLabel();
-        lblNombreJ2 = new javax.swing.JLabel();
-        Ficha2 = new javax.swing.JLabel();
-        Ficha1 = new javax.swing.JLabel();
-        lblNombreJ5 = new javax.swing.JLabel();
-        Ficha5 = new javax.swing.JLabel();
-        Ficha6 = new javax.swing.JLabel();
-        lblNombreJ6 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtaDescripcion = new javax.swing.JTextArea();
+        panelComprar = new javax.swing.JPanel();
+        lblComprar = new javax.swing.JLabel();
+        panelRenta = new javax.swing.JPanel();
+        lblRenta = new javax.swing.JLabel();
+        panelTurno = new javax.swing.JPanel();
+        lblSiguienteTurno = new javax.swing.JLabel();
+        lblDado1 = new javax.swing.JLabel();
+        lblDado2 = new javax.swing.JLabel();
         panelTablero = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -121,47 +87,12 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
                 lblCierreMouseExited(evt);
             }
         });
-        panelFondo.add(lblCierre, new org.netbeans.lib.awtextra.AbsoluteConstraints(1320, 0, -1, -1));
+        panelFondo.add(lblCierre, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 10, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(240, 232, 216));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        panelBoton1.setBackground(new java.awt.Color(216, 195, 165));
-
-        lblTerminarPartida.setBackground(new java.awt.Color(255, 255, 255));
-        lblTerminarPartida.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
-        lblTerminarPartida.setForeground(new java.awt.Color(0, 0, 0));
-        lblTerminarPartida.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTerminarPartida.setText("Terminar partida");
-        lblTerminarPartida.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblTerminarPartida.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblTerminarPartidaMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblTerminarPartidaMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblTerminarPartidaMousePressed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelBoton1Layout = new javax.swing.GroupLayout(panelBoton1);
-        panelBoton1.setLayout(panelBoton1Layout);
-        panelBoton1Layout.setHorizontalGroup(
-            panelBoton1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblTerminarPartida, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-        );
-        panelBoton1Layout.setVerticalGroup(
-            panelBoton1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBoton1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblTerminarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel2.add(panelBoton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 630, 166, 50));
-
-        panelBoton3.setBackground(new java.awt.Color(140, 211, 179));
+        panelBoton.setBackground(new java.awt.Color(140, 211, 179));
 
         lblLanzarDado.setBackground(new java.awt.Color(255, 255, 255));
         lblLanzarDado.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
@@ -181,103 +112,144 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout panelBoton3Layout = new javax.swing.GroupLayout(panelBoton3);
-        panelBoton3.setLayout(panelBoton3Layout);
-        panelBoton3Layout.setHorizontalGroup(
-            panelBoton3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBoton3Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelBotonLayout = new javax.swing.GroupLayout(panelBoton);
+        panelBoton.setLayout(panelBotonLayout);
+        panelBotonLayout.setHorizontalGroup(
+            panelBotonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBotonLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblLanzarDado, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblLanzarDado, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        panelBoton3Layout.setVerticalGroup(
-            panelBoton3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBoton3Layout.createSequentialGroup()
+        panelBotonLayout.setVerticalGroup(
+            panelBotonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBotonLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(lblLanzarDado, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel2.add(panelBoton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 320, -1, 50));
-        jPanel2.add(lblDado, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 460, 120, 120));
+        jPanel2.add(panelBoton, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 180, 50));
 
-        jpanelReiniciar.setBackground(new java.awt.Color(177, 156, 217));
+        txtaDescripcion.setEditable(false);
+        txtaDescripcion.setColumns(20);
+        txtaDescripcion.setRows(5);
+        jScrollPane1.setViewportView(txtaDescripcion);
 
-        lblReiniciar.setBackground(new java.awt.Color(255, 255, 255));
-        lblReiniciar.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
-        lblReiniciar.setForeground(new java.awt.Color(0, 0, 0));
-        lblReiniciar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblReiniciar.setText("Reiniciar partida");
-        lblReiniciar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblReiniciar.addMouseListener(new java.awt.event.MouseAdapter() {
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 330, 260));
+
+        panelComprar.setBackground(new java.awt.Color(140, 211, 179));
+
+        lblComprar.setBackground(new java.awt.Color(255, 255, 255));
+        lblComprar.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        lblComprar.setForeground(new java.awt.Color(0, 0, 0));
+        lblComprar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblComprar.setText("Comprar");
+        lblComprar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblComprar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblReiniciarMouseEntered(evt);
+                lblComprarMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblReiniciarMouseExited(evt);
+                lblComprarMouseExited(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblReiniciarMousePressed(evt);
+                lblComprarMousePressed(evt);
             }
         });
 
-        javax.swing.GroupLayout jpanelReiniciarLayout = new javax.swing.GroupLayout(jpanelReiniciar);
-        jpanelReiniciar.setLayout(jpanelReiniciarLayout);
-        jpanelReiniciarLayout.setHorizontalGroup(
-            jpanelReiniciarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpanelReiniciarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblReiniciar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jpanelReiniciarLayout.setVerticalGroup(
-            jpanelReiniciarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanelReiniciarLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelComprarLayout = new javax.swing.GroupLayout(panelComprar);
+        panelComprar.setLayout(panelComprarLayout);
+        panelComprarLayout.setHorizontalGroup(
+            panelComprarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelComprarLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblReiniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        panelComprarLayout.setVerticalGroup(
+            panelComprarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelComprarLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel2.add(jpanelReiniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 690, 166, 50));
+        jPanel2.add(panelComprar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 160, 50));
 
-        lblNombreJ3.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
-        lblNombreJ3.setForeground(new java.awt.Color(80, 200, 120));
-        lblNombreJ3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(lblNombreJ3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 100, 40));
+        panelRenta.setBackground(new java.awt.Color(140, 211, 179));
 
-        lblNombreJ4.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
-        lblNombreJ4.setForeground(new java.awt.Color(204, 153, 255));
-        lblNombreJ4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNombreJ4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(lblNombreJ4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 100, 40));
-        jPanel2.add(Ficha4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 60, 70));
+        lblRenta.setBackground(new java.awt.Color(255, 255, 255));
+        lblRenta.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        lblRenta.setForeground(new java.awt.Color(0, 0, 0));
+        lblRenta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblRenta.setText("Pagar renta");
+        lblRenta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblRenta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblRentaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblRentaMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblRentaMousePressed(evt);
+            }
+        });
 
-        Ficha3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(Ficha3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 60, 70));
+        javax.swing.GroupLayout panelRentaLayout = new javax.swing.GroupLayout(panelRenta);
+        panelRenta.setLayout(panelRentaLayout);
+        panelRentaLayout.setHorizontalGroup(
+            panelRentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRentaLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblRenta, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        panelRentaLayout.setVerticalGroup(
+            panelRentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRentaLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblRenta, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
-        lblNombreJ1.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
-        lblNombreJ1.setForeground(new java.awt.Color(220, 20, 60));
-        lblNombreJ1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(lblNombreJ1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 100, 40));
+        jPanel2.add(panelRenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 370, 160, 50));
 
-        lblNombreJ2.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
-        lblNombreJ2.setForeground(new java.awt.Color(65, 105, 225));
-        lblNombreJ2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(lblNombreJ2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 100, 40));
-        jPanel2.add(Ficha2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 60, 70));
-        jPanel2.add(Ficha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 60, 70));
+        panelTurno.setBackground(new java.awt.Color(140, 211, 179));
 
-        lblNombreJ5.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
-        lblNombreJ5.setForeground(new java.awt.Color(204, 153, 255));
-        lblNombreJ5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNombreJ5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(lblNombreJ5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 100, 40));
-        jPanel2.add(Ficha5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 60, 70));
-        jPanel2.add(Ficha6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 150, 60, 70));
+        lblSiguienteTurno.setBackground(new java.awt.Color(255, 255, 255));
+        lblSiguienteTurno.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        lblSiguienteTurno.setForeground(new java.awt.Color(0, 0, 0));
+        lblSiguienteTurno.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSiguienteTurno.setText("Siguiente turno");
+        lblSiguienteTurno.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblSiguienteTurno.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblSiguienteTurnoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblSiguienteTurnoMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblSiguienteTurnoMousePressed(evt);
+            }
+        });
 
-        lblNombreJ6.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
-        lblNombreJ6.setForeground(new java.awt.Color(65, 105, 225));
-        lblNombreJ6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(lblNombreJ6, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, 100, 40));
+        javax.swing.GroupLayout panelTurnoLayout = new javax.swing.GroupLayout(panelTurno);
+        panelTurno.setLayout(panelTurnoLayout);
+        panelTurnoLayout.setHorizontalGroup(
+            panelTurnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTurnoLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblSiguienteTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        panelTurnoLayout.setVerticalGroup(
+            panelTurnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTurnoLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblSiguienteTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
-        panelFondo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 40, 470, 750));
+        jPanel2.add(panelTurno, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 440, 180, 50));
+        jPanel2.add(lblDado1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 530, 120, 120));
+        jPanel2.add(lblDado2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 530, 120, 120));
+
+        panelFondo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 40, 370, 750));
 
         panelTablero.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -298,7 +270,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 1350, Short.MAX_VALUE)
+            .addComponent(panelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 1242, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -320,53 +292,79 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         lblCierre.setForeground(new Color(0, 0, 0));
     }//GEN-LAST:event_lblCierreMouseExited
 
-    private void lblTerminarPartidaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTerminarPartidaMouseEntered
-        panelBoton1.setBackground(new Color(204, 183, 153));
-    }//GEN-LAST:event_lblTerminarPartidaMouseEntered
-
-    private void lblTerminarPartidaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTerminarPartidaMouseExited
-        panelBoton1.setBackground(new Color(216, 195, 165));
-    }//GEN-LAST:event_lblTerminarPartidaMouseExited
-
-    private void lblTerminarPartidaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTerminarPartidaMousePressed
-
-    }//GEN-LAST:event_lblTerminarPartidaMousePressed
-
     private void lblLanzarDadoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLanzarDadoMouseEntered
-        panelBoton3.setBackground(new Color(183, 221, 200));
+        panelBoton.setBackground(new Color(183, 221, 200));
     }//GEN-LAST:event_lblLanzarDadoMouseEntered
 
     private void lblLanzarDadoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLanzarDadoMouseExited
-        panelBoton3.setBackground(new Color(140, 211, 179));
+        panelBoton.setBackground(new Color(140, 211, 179));
     }//GEN-LAST:event_lblLanzarDadoMouseExited
 
     private void lblLanzarDadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLanzarDadoMousePressed
         lanzarDadosYActualizar();
     }//GEN-LAST:event_lblLanzarDadoMousePressed
 
-    private void lblReiniciarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReiniciarMouseEntered
-        jpanelReiniciar.setBackground(new Color(214, 176, 255));
-    }//GEN-LAST:event_lblReiniciarMouseEntered
+    private void lblComprarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblComprarMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblComprarMouseEntered
 
-    private void lblReiniciarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReiniciarMouseExited
-        jpanelReiniciar.setBackground(new Color(177, 156, 217));
-    }//GEN-LAST:event_lblReiniciarMouseExited
+    private void lblComprarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblComprarMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblComprarMouseExited
 
-    private void lblReiniciarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReiniciarMousePressed
+    private void lblComprarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblComprarMousePressed
+        Jugador jugadorActual = getJugadorActual();
+        if (jugadorActual != null) {
+            Casilla casillaActual = tablero.todasLasCasillas.get(jugadorActual.getPosicion());
+            if (!tablero.casillasNoComprables.contains(casillaActual)) {
+                jugadorActual.comprarPropiedadEnCasilla(casillaActual.numero, casillaActual.getPrecio());
+                actualizarDescripcionJugadorActual();
+            } else {
+                System.out.println("Esta casilla no es comprable.");
+            }
+        }
+    }//GEN-LAST:event_lblComprarMousePressed
 
-    }//GEN-LAST:event_lblReiniciarMousePressed
+    private void lblRentaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRentaMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblRentaMouseEntered
+
+    private void lblRentaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRentaMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblRentaMouseExited
+
+    private void lblRentaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRentaMousePressed
+        Jugador jugadorActual = getJugadorActual();
+        if (jugadorActual != null) {
+            Casilla casillaActual = tablero.todasLasCasillas.get(jugadorActual.getPosicion());
+            jugadorActual.pagarRentaEnCasilla(casillaActual.numero, casillaActual.getPrecioAlquiler());
+            actualizarDescripcionJugadorActual();
+        }
+    }//GEN-LAST:event_lblRentaMousePressed
+
+    private void lblSiguienteTurnoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSiguienteTurnoMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblSiguienteTurnoMouseEntered
+
+    private void lblSiguienteTurnoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSiguienteTurnoMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblSiguienteTurnoMouseExited
+
+    private void lblSiguienteTurnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSiguienteTurnoMousePressed
+        siguienteJugador();
+    }//GEN-LAST:event_lblSiguienteTurnoMousePressed
 
     public void lanzarDadosYActualizar() {
         Jugador jugadorActual = getJugadorActual();
 
         int dado1 = (int) (Math.random() * 6) + 1;
         int dado2 = (int) (Math.random() * 6) + 1;
-        int pasos = dado1 + dado2;
+        int resultado = dado1 + dado2;
 
-        System.out.println("Jugador " + jugadorActual.getNombre() + " ha lanzado " + dado1 + " y " + dado2 + " para un total de " + pasos);
+        System.out.println("Jugador " + jugadorActual.getNombre() + " ha lanzado " + dado1 + " y " + dado2 + " para un total de " + resultado);
 
-        tablero.moverJugador(jugadorActual, pasos);
-        siguienteJugador();
+        tablero.moverJugador(jugadorActual, resultado);
+        actualizarDescripcionJugadorActual();
     }
 
     public Jugador getJugadorActual() {
@@ -377,29 +375,52 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         indiceJugadorActual = (indiceJugadorActual + 1) % jugadores.size();
     }
 
+    public Jugador obtenerJugadorPorNumero(int numeroJugador) {
+        for (Jugador jugador : jugadores) {
+            if (jugador.getNumeroJugador() == numeroJugador) {
+                return jugador;
+            }
+        }
+        return null;
+    }
+
+    public void actualizarDescripcionJugadorActual() {
+        Jugador jugadorActual = getJugadorActual();
+        StringBuilder descripcion = new StringBuilder();
+        descripcion.append("Nombre: ").append(jugadorActual.getNombre()).append("\n");
+        descripcion.append("Dinero: $").append(jugadorActual.getDinero()).append("\n");
+        descripcion.append("Propiedades: ");
+
+        if (jugadorActual.getPropiedades().isEmpty()) {
+            descripcion.append("Ninguna");
+        } else {
+            descripcion.append("\n"); 
+            for (int propiedad : jugadorActual.getPropiedades()) {
+                Casilla casilla = tablero.todasLasCasillas.get(propiedad);
+                descripcion.append(casilla.getNombre()).append("\n");
+            }
+        }
+
+        txtaDescripcion.setText(descripcion.toString());
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Ficha1;
-    private javax.swing.JLabel Ficha2;
-    private javax.swing.JLabel Ficha3;
-    private javax.swing.JLabel Ficha4;
-    private javax.swing.JLabel Ficha5;
-    private javax.swing.JLabel Ficha6;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jpanelReiniciar;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCierre;
-    private javax.swing.JLabel lblDado;
+    public javax.swing.JLabel lblComprar;
+    private javax.swing.JLabel lblDado1;
+    private javax.swing.JLabel lblDado2;
     public javax.swing.JLabel lblLanzarDado;
-    private javax.swing.JLabel lblNombreJ1;
-    private javax.swing.JLabel lblNombreJ2;
-    private javax.swing.JLabel lblNombreJ3;
-    private javax.swing.JLabel lblNombreJ4;
-    private javax.swing.JLabel lblNombreJ5;
-    private javax.swing.JLabel lblNombreJ6;
-    private javax.swing.JLabel lblReiniciar;
-    private javax.swing.JLabel lblTerminarPartida;
-    private javax.swing.JPanel panelBoton1;
-    private javax.swing.JPanel panelBoton3;
+    public javax.swing.JLabel lblRenta;
+    public javax.swing.JLabel lblSiguienteTurno;
+    private javax.swing.JPanel panelBoton;
+    private javax.swing.JPanel panelComprar;
     private javax.swing.JPanel panelFondo;
+    private javax.swing.JPanel panelRenta;
     private javax.swing.JPanel panelTablero;
+    private javax.swing.JPanel panelTurno;
+    public javax.swing.JTextArea txtaDescripcion;
     // End of variables declaration//GEN-END:variables
 }

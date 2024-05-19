@@ -15,10 +15,10 @@ public class Jugador {
     JLabel lblNumeroJugador;
     private int posicion;
     private ArrayList<int[]> locacionesJugadores = new ArrayList<>();
-
     private int casillaActual = 1;
     private ArrayList<Integer> propiedades = new ArrayList<>();
     private int dinero = 3200;
+    private PanelTablero_Monopoly panelTablero;
 
     public Jugador(String nombre, int numeroJugador, Color color, int x, int y) {
         this.color = color;
@@ -27,7 +27,11 @@ public class Jugador {
         this.y = y;
         this.posicion = posicion;
         this.numeroJugador = numeroJugador;
-        inicializarLocacionesJugador();
+        this.panelTablero = panelTablero;
+    }
+
+    public void setPanelTablero(PanelTablero_Monopoly panelTablero) {
+        this.panelTablero = panelTablero;
     }
 
     public int getPosicion() {
@@ -37,7 +41,7 @@ public class Jugador {
     public void setPosicion(int posicion) {
         this.posicion = posicion;
     }
-    
+
     public int getX() {
         return x;
     }
@@ -88,7 +92,7 @@ public class Jugador {
 
     public void sumarDinero(int cantidad) {
         dinero += cantidad;
-        System.out.println("¡Día de pago para el jugador " + getNumeroJugador() + "! Has ganado $200.");
+        System.out.println("Dia de pago para el jugador " + getNumeroJugador() + "! Has ganado $200.");
     }
 
     public int getCasillaActual() {
@@ -103,55 +107,34 @@ public class Jugador {
         return propiedades.contains(numeroCasilla);
     }
 
-    public void comprarPropiedadEnCasilla(int numeroCasilla) {
+    public void comprarPropiedadEnCasilla(int numeroCasilla, int precio) {
         if (registroPropiedad.containsKey(numeroCasilla)) {
             System.out.println("Esta propiedad ya ha sido comprada por alguien. No puedes comprarla aquí.");
         } else {
-            propiedades.add(this.getCasillaActual());
-            registroPropiedad.put(numeroCasilla, this.getNumeroJugador());
+            if (dinero >= precio) {
+                propiedades.add(numeroCasilla);
+                registroPropiedad.put(numeroCasilla, this.getNumeroJugador());
+                restarDinero(precio);
+            } else {
+                System.out.println("No tienes suficiente dinero para comprar esta propiedad.");
+            }
         }
     }
 
-    public void mover(int totalDados) {
-        if (casillaActual + totalDados > 39) {
-            sumarDinero(200);
+    public void pagarRentaEnCasilla(int numeroCasilla, int precioAlquiler) {
+        if (registroPropiedad.containsKey(numeroCasilla)) {
+            int propietarioNumero = registroPropiedad.get(numeroCasilla);
+            if (propietarioNumero != this.numeroJugador) {
+                Jugador propietario = panelTablero.obtenerJugadorPorNumero(propietarioNumero);
+                this.restarDinero(precioAlquiler);
+                propietario.sumarDinero(precioAlquiler);
+                System.out.println("Jugador " + this.getNombre() + " pago $" + precioAlquiler + " de renta a " + propietario.getNombre());
+            } else {
+                System.out.println("Estás en tu propia propiedad.");
+            }
+        } else {
+            System.out.println("Esta casilla no tiene propietario.");
         }
-        int casillaObjetivo = (casillaActual + totalDados) % 40;
-        casillaActual = casillaObjetivo;
-
-        int xLocacion = locacionesJugadores.get(0)[casillaObjetivo];
-        int yLocacion = locacionesJugadores.get(1)[casillaObjetivo];
-        this.setX(xLocacion);
-        this.setY(yLocacion);
-
-        if (registroPropiedad.containsKey(this.getCasillaActual())) {
-            //MonopolyMain.consolaInformacion.setText("Esta propiedad pertenece al jugador " + registroPropiedad.get(this.getCasillaActual()));
-        }
-    }
-
-    private void inicializarLocacionesJugador() {
-        int[] xLocacionesJugador = new int[40];
-        int[] yLocacionesJugador = new int[40];
-
-        for (int i = 0; i < 10; i++) {
-            xLocacionesJugador[i] = 31 + i * 70;
-            yLocacionesJugador[i] = 733;
-        }
-        for (int i = 10; i < 20; i++) {
-            xLocacionesJugador[i] = 733;
-            yLocacionesJugador[i] = 733 - (i - 10) * 70;
-        }
-        for (int i = 20; i < 30; i++) {
-            xLocacionesJugador[i] = 733 - (i - 20) * 70;
-            yLocacionesJugador[i] = 33;
-        }
-        for (int i = 30; i < 40; i++) {
-            xLocacionesJugador[i] = 33;
-            yLocacionesJugador[i] = 33 + (i - 30) * 70;
-        }
-
-        locacionesJugadores.add(xLocacionesJugador);
-        locacionesJugadores.add(yLocacionesJugador);
     }
 
     static HashMap<Integer, Integer> registroPropiedad = new HashMap<>();

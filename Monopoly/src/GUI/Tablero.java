@@ -4,11 +4,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
@@ -17,8 +20,8 @@ import javax.swing.border.LineBorder;
 
 public class Tablero extends JLayeredPane {
 
-    private ArrayList<Casilla> todasLasCasillas = new ArrayList<>();
-    private ArrayList<Casilla> casillasNoComprables = new ArrayList<>();
+    public ArrayList<Casilla> todasLasCasillas = new ArrayList<>();
+    public ArrayList<Casilla> casillasNoComprables = new ArrayList<>();
     private PanelTablero_Monopoly panelTablero;
     private JugadoresOverlay jugadoresOverlay;
 
@@ -109,48 +112,74 @@ public class Tablero extends JLayeredPane {
         todasLasCasillas.get(37).setPrecioAlquiler(35);
         todasLasCasillas.get(39).setPrecioAlquiler(50);
 
-        JLabel lblMonopoly = new JLabel("MONOPOLY") {
-            protected void paintComponent(Graphics g) {
-                Graphics2D g2 = (Graphics2D) g;
-                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                AffineTransform aT = g2.getTransform();
-                Shape oldshape = g2.getClip();
-                double x = getWidth() / 2.0;
-                double y = getHeight() / 2.0;
-                aT.rotate(Math.toRadians(-35), x, y);
-                g2.setTransform(aT);
-                g2.setClip(oldshape);
-                super.paintComponent(g);
-            }
-        };
-        lblMonopoly.setForeground(Color.WHITE);
-        lblMonopoly.setBackground(Color.RED);
-        lblMonopoly.setOpaque(true);
-        lblMonopoly.setHorizontalAlignment(SwingConstants.CENTER);
-        lblMonopoly.setFont(new Font("Lucida Grande", Font.PLAIN, 40));
-        lblMonopoly.setBounds(269, 350, 263, 55);
-        this.add(lblMonopoly, JLayeredPane.DEFAULT_LAYER);
+        ImageIcon monopolyIcon = new ImageIcon(getClass().getResource("/resources/logoMonopoly.png"));
+        JLabel lblMonopolyImage = new JLabel(monopolyIcon);
+        lblMonopolyImage.setBounds(-80, 10, 900, 700); 
+
+        Image image = monopolyIcon.getImage();
+        BufferedImage rotatedImage = rotarImagen(image, -45);
+        Image scaledImage = imagenEscalada(rotatedImage, lblMonopolyImage.getWidth(), lblMonopolyImage.getHeight());
+
+        lblMonopolyImage.setIcon(new ImageIcon(scaledImage));
+        this.add(lblMonopolyImage, JLayeredPane.DEFAULT_LAYER);
+    }
+
+    private BufferedImage rotarImagen(Image img, double angle) {
+        int width = img.getWidth(null);
+        int height = img.getHeight(null);
+
+        double radians = Math.toRadians(angle);
+        double sin = Math.abs(Math.sin(radians));
+        double cos = Math.abs(Math.cos(radians));
+        int newWidth = (int) Math.floor(width * cos + height * sin);
+        int newHeight = (int) Math.floor(height * cos + width * sin);
+
+        BufferedImage rotated = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = rotated.createGraphics();
+
+        AffineTransform transform = new AffineTransform();
+        transform.translate((newWidth - width) / 2, (newHeight - height) / 2);
+        transform.rotate(radians, width / 2.0, height / 2.0);
+
+        g2d.drawImage(img, transform, null);
+        g2d.dispose();
+        return rotated;
+    }
+
+    private Image imagenEscalada(Image srcImg, int w, int h) {
+        int imgWidth = srcImg.getWidth(null);
+        int imgHeight = srcImg.getHeight(null);
+        double aspectRatio = (double) imgWidth / imgHeight;
+
+        int newWidth = w;
+        int newHeight = h;
+
+        if (w / aspectRatio < h) {
+            newHeight = (int) (w / aspectRatio);
+        } else {
+            newWidth = (int) (h * aspectRatio);
+        }
+
+        return srcImg.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
     }
 
     public void actualizarJugadores() {
         jugadoresOverlay.repaint();
     }
 
-    public void moverJugador(Jugador jugador, int pasos) {
-        int nuevaPosicion = (jugador.getPosicion() + pasos) % 40;
+    public void moverJugador(Jugador jugador, int resultado) {
+        int nuevaPosicion = (jugador.getPosicion() + resultado) % 40;
         Casilla casillaAnterior = todasLasCasillas.get(jugador.getPosicion());
         Casilla nuevaCasilla = todasLasCasillas.get(nuevaPosicion);
 
         casillaAnterior.eliminarJugador(jugador);
-        nuevaCasilla.agregarJugador(jugador); 
+        nuevaCasilla.agregarJugador(jugador);
 
         jugador.setPosicion(nuevaPosicion);
 
-        jugador.setX(nuevaCasilla.getX() + nuevaCasilla.getWidth() / 2 - 10); 
-        jugador.setY(nuevaCasilla.getY() + nuevaCasilla.getHeight() / 2 - 10); 
+        jugador.setX(nuevaCasilla.getX() + nuevaCasilla.getWidth() / 2 - 10);
+        jugador.setY(nuevaCasilla.getY() + nuevaCasilla.getHeight() / 2 - 10);
 
-        actualizarJugadores(); 
+        actualizarJugadores();
     }
 }
-
-
