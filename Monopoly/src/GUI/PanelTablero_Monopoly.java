@@ -10,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
@@ -23,6 +22,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
     private Tablero tablero = new Tablero(6, 6, 790, 790, this);
     private int indiceJugadorActual = 0;
     public boolean dadoLanzado = false;
+    private boolean puedeLanzarDado = true;
 
     public PanelTablero_Monopoly(List<Jugador> jugadores, List<Integer> posicionesJugadores) {
         this.jugadores = jugadores;
@@ -36,14 +36,6 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         panelFondo.setOpaque(false);
         setBackground(new Color(0, 0, 0, 0));
-    }
-
-    public List<Jugador> getJugadores() {
-        return jugadores;
-    }
-
-    public void setJugadores(List<Jugador> jugadores) {
-        this.jugadores = jugadores;
     }
 
     private void init2() {
@@ -68,6 +60,8 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         lblSiguienteTurno = new javax.swing.JLabel();
         lblDado1 = new javax.swing.JLabel();
         lblDado2 = new javax.swing.JLabel();
+        panelTerminar = new javax.swing.JPanel();
+        lblTerminarPartida = new javax.swing.JLabel();
         panelTablero = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -214,6 +208,43 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         jPanel2.add(lblDado1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 530, 120, 120));
         jPanel2.add(lblDado2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 530, 120, 120));
 
+        panelTerminar.setBackground(new java.awt.Color(140, 211, 179));
+
+        lblTerminarPartida.setBackground(new java.awt.Color(255, 255, 255));
+        lblTerminarPartida.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        lblTerminarPartida.setForeground(new java.awt.Color(0, 0, 0));
+        lblTerminarPartida.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTerminarPartida.setText("Terminar partida");
+        lblTerminarPartida.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblTerminarPartida.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblTerminarPartidaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblTerminarPartidaMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblTerminarPartidaMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelTerminarLayout = new javax.swing.GroupLayout(panelTerminar);
+        panelTerminar.setLayout(panelTerminarLayout);
+        panelTerminarLayout.setHorizontalGroup(
+            panelTerminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTerminarLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblTerminarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        panelTerminarLayout.setVerticalGroup(
+            panelTerminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTerminarLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblTerminarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel2.add(panelTerminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 680, 180, 50));
+
         panelFondo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 40, 370, 750));
 
         panelTablero.setBackground(new java.awt.Color(255, 255, 255));
@@ -266,6 +297,9 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
     }//GEN-LAST:event_lblLanzarDadoMouseExited
 
     private void lblLanzarDadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLanzarDadoMousePressed
+        if (!puedeLanzarDado) {
+            return;
+        }
 
         dadoLanzado = true;
         Jugador jugadorActual = getJugadorActual();
@@ -297,6 +331,10 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
                     tablero.moverJugador(jugadorActual, resultado);
                     actualizarDescripcionJugadorActual();
 
+                    if (dado1.getValorDado() != dado2.getValorDado()) {
+                        puedeLanzarDado = false;
+                        lblLanzarDado.setEnabled(false);
+                    }
                 }
             }
         });
@@ -333,19 +371,23 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
 
     private void lblSiguienteTurnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSiguienteTurnoMousePressed
         siguienteJugador();
+        puedeLanzarDado = true;
+        lblLanzarDado.setEnabled(true);
     }//GEN-LAST:event_lblSiguienteTurnoMousePressed
 
-    public void lanzarDadosYActualizar() {
+    private void lblTerminarPartidaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTerminarPartidaMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblTerminarPartidaMouseEntered
 
-        int dado1 = (int) (Math.random() * 6) + 1;
-        int dado2 = (int) (Math.random() * 6) + 1;
-        int resultado = dado1 + dado2;
+    private void lblTerminarPartidaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTerminarPartidaMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblTerminarPartidaMouseExited
 
-    }
-
-    public Jugador getJugadorActual() {
-        return jugadores.get(indiceJugadorActual);
-    }
+    private void lblTerminarPartidaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTerminarPartidaMousePressed
+        PanelMain_Monopoly main = new PanelMain_Monopoly();
+        main.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_lblTerminarPartidaMousePressed
 
     public void siguienteJugador() {
         indiceJugadorActual = (indiceJugadorActual + 1) % jugadores.size();
@@ -380,6 +422,18 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         txtaDescripcion.setText(descripcion.toString());
     }
 
+    public Jugador getJugadorActual() {
+        return jugadores.get(indiceJugadorActual);
+    }
+
+    public List<Jugador> getJugadores() {
+        return jugadores;
+    }
+
+    public void setJugadores(List<Jugador> jugadores) {
+        this.jugadores = jugadores;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel2;
@@ -390,10 +444,12 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
     private javax.swing.JLabel lblDado2;
     public javax.swing.JLabel lblLanzarDado;
     public javax.swing.JLabel lblSiguienteTurno;
+    public javax.swing.JLabel lblTerminarPartida;
     private javax.swing.JPanel panelBoton;
     private javax.swing.JPanel panelComprar;
     private javax.swing.JPanel panelFondo;
     private javax.swing.JPanel panelTablero;
+    private javax.swing.JPanel panelTerminar;
     private javax.swing.JPanel panelTurno;
     public javax.swing.JTextArea txtaDescripcion;
     // End of variables declaration//GEN-END:variables

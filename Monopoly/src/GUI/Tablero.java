@@ -161,24 +161,25 @@ public class Tablero extends JLayeredPane {
     }
 
     public void moverJugador(Jugador jugador, int resultado) {
-        int nuevaPosicion = (jugador.getPosicion() + resultado) % 40;
-        Casilla casillaAnterior = todasLasCasillas.get(jugador.getPosicion());
-        Casilla nuevaCasilla = todasLasCasillas.get(nuevaPosicion);
+        int viejaPos = jugador.getPosicion();
+        int nuevaPos = (viejaPos + resultado) % 40;
+        Casilla nuevaCasilla = todasLasCasillas.get(nuevaPos);
 
-        casillaAnterior.eliminarJugador(jugador);
-        nuevaCasilla.agregarJugador(jugador);
+        FichaAnimada fichaAnimada = new FichaAnimada(jugador, resultado, this, 200);
+        fichaAnimada.setOnFinishListener(new FichaAnimada.OnFinishListener() {
+            @Override
+            public void onFinish() {
+                jugador.setPosicion(nuevaPos);
+                nuevaCasilla.agregarJugador(jugador);
+                actualizarJugadores();
 
-        jugador.setPosicion(nuevaPosicion);
+                Jugador jugadorActual = panelTablero.getJugadorActual();
+                Casilla casillaActual = todasLasCasillas.get(jugadorActual.getPosicion());
+                jugadorActual.pagarRentaEnCasilla(casillaActual.numero, casillaActual.getPrecioAlquiler());
+                panelTablero.actualizarDescripcionJugadorActual();
+            }
+        });
 
-        jugador.setX(nuevaCasilla.getX() + nuevaCasilla.getWidth() / 2 - 10);
-        jugador.setY(nuevaCasilla.getY() + nuevaCasilla.getHeight() / 2 - 10);
-
-        actualizarJugadores();
-        Jugador jugadorActual = panelTablero.getJugadorActual();
-
-        Casilla casillaActual = todasLasCasillas.get(jugadorActual.getPosicion());
-        jugadorActual.pagarRentaEnCasilla(casillaActual.numero, casillaActual.getPrecioAlquiler());
-        panelTablero.actualizarDescripcionJugadorActual();
-
+        fichaAnimada.start();
     }
 }
