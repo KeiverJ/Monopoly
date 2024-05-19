@@ -3,7 +3,7 @@ package GUI;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
-import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class Jugador {
 
@@ -12,7 +12,6 @@ public class Jugador {
     private Color color;
     private int x;
     private int y;
-    JLabel lblNumeroJugador;
     private int posicion;
     private ArrayList<int[]> locacionesJugadores = new ArrayList<>();
     private int casillaActual = 1;
@@ -109,14 +108,15 @@ public class Jugador {
 
     public void comprarPropiedadEnCasilla(int numeroCasilla, int precio) {
         if (registroPropiedad.containsKey(numeroCasilla)) {
-            System.out.println("Esta propiedad ya ha sido comprada por alguien. No puedes comprarla aquí.");
+            JOptionPane.showMessageDialog(panelTablero, "Esta propiedad ya ha sido comprada por alguien. No puedes comprarla aquí.");
         } else {
             if (dinero >= precio) {
                 propiedades.add(numeroCasilla);
                 registroPropiedad.put(numeroCasilla, this.getNumeroJugador());
                 restarDinero(precio);
+                JOptionPane.showMessageDialog(panelTablero, "Propiedad comprada satisfactoriamente.");
             } else {
-                System.out.println("No tienes suficiente dinero para comprar esta propiedad.");
+                JOptionPane.showMessageDialog(panelTablero, "No tienes suficiente dinero para comprar esta propiedad.");
             }
         }
     }

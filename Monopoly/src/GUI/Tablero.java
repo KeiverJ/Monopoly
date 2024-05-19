@@ -1,21 +1,14 @@
 package GUI;
 
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.RenderingHints;
-import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 public class Tablero extends JLayeredPane {
@@ -179,6 +172,8 @@ public class Tablero extends JLayeredPane {
 
         jugador.setX(nuevaCasilla.getX() + nuevaCasilla.getWidth() / 2 - 10);
         jugador.setY(nuevaCasilla.getY() + nuevaCasilla.getHeight() / 2 - 10);
+        
+        
 
         actualizarJugadores();
     }
