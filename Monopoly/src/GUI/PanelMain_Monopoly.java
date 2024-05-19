@@ -5,7 +5,10 @@
 package GUI;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 
 /**
@@ -116,7 +119,7 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
             }
         });
         panelFondo.add(txtJugador2);
-        txtJugador2.setBounds(370, 160, 230, 40);
+        txtJugador2.setBounds(60, 160, 230, 40);
 
         txtJugador1.setBackground(new java.awt.Color(244, 216, 204));
         txtJugador1.setFont(new java.awt.Font("Montserrat", 1, 28)); // NOI18N
@@ -145,7 +148,7 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
             }
         });
         panelFondo.add(txtJugador1);
-        txtJugador1.setBounds(80, 100, 230, 40);
+        txtJugador1.setBounds(60, 100, 230, 40);
 
         lblTitulo.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(0, 0, 0));
@@ -181,7 +184,7 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
             }
         });
         panelFondo.add(txtJugador3);
-        txtJugador3.setBounds(370, 220, 230, 40);
+        txtJugador3.setBounds(60, 220, 230, 40);
 
         txtJugador4.setBackground(new java.awt.Color(215, 234, 205));
         txtJugador4.setFont(new java.awt.Font("Montserrat", 1, 28)); // NOI18N
@@ -210,7 +213,7 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
             }
         });
         panelFondo.add(txtJugador4);
-        txtJugador4.setBounds(370, 100, 230, 40);
+        txtJugador4.setBounds(400, 100, 230, 40);
 
         panelBoton.setBackground(new java.awt.Color(90, 114, 179));
 
@@ -277,7 +280,7 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
             }
         });
         panelFondo.add(txtJugador5);
-        txtJugador5.setBounds(80, 160, 230, 40);
+        txtJugador5.setBounds(400, 160, 230, 40);
 
         txtJugador6.setBackground(new java.awt.Color(232, 229, 211));
         txtJugador6.setFont(new java.awt.Font("Montserrat", 1, 28)); // NOI18N
@@ -306,7 +309,7 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
             }
         });
         panelFondo.add(txtJugador6);
-        txtJugador6.setBounds(80, 220, 230, 40);
+        txtJugador6.setBounds(400, 220, 230, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -327,9 +330,51 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
     }//GEN-LAST:event_panelFondoMousePressed
 
     private void lblIniciarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIniciarMousePressed
-        PanelTablero_Monopoly panelTablero = new PanelTablero_Monopoly();
-        panelTablero.setVisible(true);
-        this.dispose();
+        //int xInicio = tablero.todasLasCasillas.get(0).getX();
+        //int yInicio = tablero.todasLasCasillas.get(0).getY();
+
+        Jugador jugador1 = new Jugador(txtJugador1.getText(), 1, Color.BLACK, 730, 730);
+        Jugador jugador2 = new Jugador(txtJugador2.getText(), 2, Color.BLUE, 730, 730);
+        Jugador jugador3 = new Jugador(txtJugador3.getText(), 3, Color.CYAN, 730, 730);
+        Jugador jugador4 = new Jugador(txtJugador4.getText(), 4, Color.MAGENTA, 730, 730);
+        Jugador jugador5 = new Jugador(txtJugador3.getText(), 5, Color.ORANGE, 730, 730);
+        Jugador jugador6 = new Jugador(txtJugador4.getText(), 6, Color.LIGHT_GRAY, 730, 730);
+
+        List<Jugador> jugadores = new ArrayList<>();
+        List<Integer> posicionesJugadores = new ArrayList<>();
+
+        if (!txtJugador1.getText().isEmpty()) {
+            jugadores.add(jugador1);
+            posicionesJugadores.add(1);
+        }
+        if (!txtJugador2.getText().isEmpty()) {
+            jugadores.add(jugador2);
+            posicionesJugadores.add(2);
+        }
+        if (!txtJugador3.getText().isEmpty()) {
+            jugadores.add(jugador3);
+            posicionesJugadores.add(3);
+        }
+        if (!txtJugador4.getText().isEmpty()) {
+            jugadores.add(jugador4);
+            posicionesJugadores.add(4);
+        }
+        if (!txtJugador5.getText().isEmpty()) {
+            jugadores.add(jugador5);
+            posicionesJugadores.add(5);
+        }
+        if (!txtJugador6.getText().isEmpty()) {
+            jugadores.add(jugador6);
+            posicionesJugadores.add(5);
+        }
+
+        if (jugadores.size() >= 2) {
+            PanelTablero_Monopoly panelTablero = new PanelTablero_Monopoly(jugadores, posicionesJugadores);
+            panelTablero.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe ingresar al menos dos jugadores con nombres válidos.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_lblIniciarMousePressed
 
     private void lblIniciarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIniciarMouseExited
@@ -466,43 +511,59 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
     }//GEN-LAST:event_lblCierreMouseClicked
 
     private void txtJugador5FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtJugador5FocusGained
-        // TODO add your handling code here:
+        if (txtJugador5.getText().equals("Jugador 5")) {
+            txtJugador5.setText("");
+        }
     }//GEN-LAST:event_txtJugador5FocusGained
 
     private void txtJugador5FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtJugador5FocusLost
-        // TODO add your handling code here:
+        if (txtJugador5.getText().trim().equals("")) {
+            txtJugador5.setText("");
+        }
     }//GEN-LAST:event_txtJugador5FocusLost
 
     private void txtJugador5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtJugador5MouseEntered
-        // TODO add your handling code here:
+        Border borde = BorderFactory.createLineBorder(new Color(137, 169, 192), 2);
+        txtJugador5.setBorder(borde);
     }//GEN-LAST:event_txtJugador5MouseEntered
 
     private void txtJugador5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtJugador5MouseExited
-        // TODO add your handling code here:
+        txtJugador5.setBorder(null);
     }//GEN-LAST:event_txtJugador5MouseExited
 
     private void txtJugador5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtJugador5KeyTyped
-        // TODO add your handling code here:
+        char caracter = Character.toLowerCase(evt.getKeyChar());
+        evt.setKeyChar(caracter);
+        if (txtJugador5.getText().length() >= 10)
+            evt.consume();
     }//GEN-LAST:event_txtJugador5KeyTyped
 
     private void txtJugador6FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtJugador6FocusGained
-        // TODO add your handling code here:
+        if (txtJugador6.getText().equals("Jugador 6")) {
+            txtJugador6.setText("");
+        }
     }//GEN-LAST:event_txtJugador6FocusGained
 
     private void txtJugador6FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtJugador6FocusLost
-        // TODO add your handling code here:
+        if (txtJugador6.getText().trim().equals("")) {
+            txtJugador6.setText("");
+        }
     }//GEN-LAST:event_txtJugador6FocusLost
 
     private void txtJugador6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtJugador6MouseEntered
-        // TODO add your handling code here:
+        Border borde = BorderFactory.createLineBorder(new Color(137, 169, 192), 2);
+        txtJugador6.setBorder(borde);
     }//GEN-LAST:event_txtJugador6MouseEntered
 
     private void txtJugador6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtJugador6MouseExited
-        // TODO add your handling code here:
+        txtJugador6.setBorder(null);
     }//GEN-LAST:event_txtJugador6MouseExited
 
     private void txtJugador6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtJugador6KeyTyped
-        // TODO add your handling code here:
+        char caracter = Character.toLowerCase(evt.getKeyChar());
+        evt.setKeyChar(caracter);
+        if (txtJugador6.getText().length() >= 10)
+            evt.consume();
     }//GEN-LAST:event_txtJugador6KeyTyped
 
     /**

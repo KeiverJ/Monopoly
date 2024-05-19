@@ -4,11 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.Shape;
-import java.awt.geom.AffineTransform;
-
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -23,6 +20,7 @@ public class Casilla extends JPanel {
     static int totalCasillas = 0;
     private int precio;
     private int precioAlquiler;
+    private List<Jugador> jugadoresEnCasilla = new ArrayList<>();
 
     public void setPrecioAlquiler(int precioAlquiler) {
         this.precioAlquiler = precioAlquiler;
@@ -44,6 +42,20 @@ public class Casilla extends JPanel {
         return nombre;
     }
 
+    public void agregarJugador(Jugador jugador) {
+        if (!jugadoresEnCasilla.contains(jugador)) {
+            jugadoresEnCasilla.add(jugador);
+            repaint();
+        }
+    }
+
+    public void eliminarJugador(Jugador jugador) {
+        if (jugadoresEnCasilla.contains(jugador)) {
+            jugadoresEnCasilla.remove(jugador);
+            repaint();
+        }
+    }
+
     public Casilla(int xCoord, int yCoord, int width, int height, String etiqueta) {
         numero = totalCasillas;
         totalCasillas++;
@@ -51,7 +63,6 @@ public class Casilla extends JPanel {
         setBounds(xCoord, yCoord, width, height);
         nombre = etiqueta;
         this.setLayout(new BorderLayout());
-
         etiquetaNombre = new JLabel("<html><div style='text-align: center;'>" + etiqueta + "<br></div></html>");
         etiquetaNombre.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
         etiquetaNombre.setHorizontalAlignment(SwingConstants.CENTER);
@@ -62,6 +73,7 @@ public class Casilla extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
         if (this.numero == 1 || this.numero == 3 || this.numero == 4) {
             g.drawRect(0, 0, this.getWidth(), 15);
             g.setColor(Color.BLUE);

@@ -8,80 +8,58 @@ import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
-
+import java.util.List;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-public class Tablero extends JPanel {
+public class Tablero extends JLayeredPane {
 
-    private ArrayList<Casilla> todasLasCasillas = new ArrayList<Casilla>();
-    private ArrayList<Casilla> casillasNoComprables = new ArrayList<Casilla>();
+    private ArrayList<Casilla> todasLasCasillas = new ArrayList<>();
+    private ArrayList<Casilla> casillasNoComprables = new ArrayList<>();
+    private PanelTablero_Monopoly panelTablero;
+    private JugadoresOverlay jugadoresOverlay;
 
-    public ArrayList<Casilla> getCasillasNoComprables() {
-        return casillasNoComprables;
-    }
-
-    public ArrayList<Casilla> getTodasLasCasillas() {
-        return todasLasCasillas;
-    }
-
-    public Casilla getCasillaEnIndice(int indice) {
-        return todasLasCasillas.get(indice);
-    }
-
-    public Tablero(int xCoord, int yCoord, int width, int height) {
+    public Tablero(int xCoord, int yCoord, int width, int height, PanelTablero_Monopoly panelTablero) {
+        this.panelTablero = panelTablero;
         setBorder(new LineBorder(new Color(0, 0, 0)));
         setBounds(xCoord, yCoord, 800, 800);
         this.setLayout(null);
         inicializarCasillas();
+
+        jugadoresOverlay = new JugadoresOverlay(panelTablero, this);
+        jugadoresOverlay.setBounds(0, 0, 800, 800);
+        this.add(jugadoresOverlay, JLayeredPane.DRAG_LAYER);
     }
 
     private void inicializarCasillas() {
         String[] nombresCasillas = {
             "Inicio", "Avenida Mediterránea", "Arca Comunal", "Avenida Báltica", "Impuesto sobre el ingreso", "Ferrocarril Reading",
-            "Avenida Oriental", "Casualidad", "Avenida Vermont", "Avenida Connecticut", "Cárcel/Visitas",
+            "Avenida Oriental", "Casualidad", "Avenida Vermont", "Avenida Connecticut", "Cárcel visita",
             "Plaza St. Charles", "Compañía Eléctrica", "Avenida de los Estados", "Avenida Virginia", "Ferrocarril Pennsylvania",
-            "Plaza St. James", "Arca Comunal", "Avenida Tennessee", "Avenida Nueva York", "Free parking",
+            "Plaza St. James", "Arca Comunal", "Avenida Tennessee", "Avenida Nueva York", "Free Parking",
             "Avenida Kentucky", "Casualidad", "Avenida Indiana", "Avenida Illinois", "Ferrocarril B&O",
             "Avenida Atlántico", "Avenida Ventnor", "Compañía de Agua", "Jardines Marvin", "Ir a la cárcel",
             "Avenida Pacífico", "Avenida Carolina del Norte", "Arca Comunal", "Avenida Pennsylvania", "Ferrocarril Corto",
             "Casualidad", "Paseo del Parque", "Impuesto de Lujo", "El Muelle"
         };
 
-        for (int i = 0; i < 10; i++) {
-            Casilla casilla = new Casilla(10 + i * 70, 710, 70, 70, nombresCasillas[i]);
-            this.add(casilla);
-            todasLasCasillas.add(casilla);
-            if (i == 0 || i == 2 || i == 5 || i == 7 || i == 10 || i == 17) {
-                casillasNoComprables.add(casilla);
-            }
-        }
+        int[][] coordenadasCasillas = {
+            {710, 710}, {640, 710}, {570, 710}, {500, 710}, {430, 710}, {360, 710}, {290, 710}, {220, 710}, {150, 710}, {80, 710}, {10, 710},
+            {10, 640}, {10, 570}, {10, 500}, {10, 430}, {10, 360}, {10, 290}, {10, 220}, {10, 150}, {10, 80}, {10, 10},
+            {80, 10}, {150, 10}, {220, 10}, {290, 10}, {360, 10}, {430, 10}, {500, 10}, {570, 10}, {640, 10}, {710, 10},
+            {710, 80}, {710, 150}, {710, 220}, {710, 290}, {710, 360}, {710, 430}, {710, 500}, {710, 570}, {710, 640}
+        };
 
-        for (int i = 10; i < 20; i++) {
-            Casilla casilla = new Casilla(710, 710 - (i - 10) * 70, 70, 70, nombresCasillas[i]);
-            this.add(casilla);
+        for (int i = 0; i < nombresCasillas.length; i++) {
+            int x = coordenadasCasillas[i][0];
+            int y = coordenadasCasillas[i][1];
+            Casilla casilla = new Casilla(x, y, 70, 70, nombresCasillas[i]);
+            this.add(casilla, JLayeredPane.DEFAULT_LAYER);
             todasLasCasillas.add(casilla);
-            if (i == 10 || i == 12 || i == 17 || i == 19) {
-                casillasNoComprables.add(casilla);
-            }
-        }
-
-        for (int i = 20; i < 30; i++) {
-            Casilla casilla = new Casilla(710 - (i - 20) * 70, 10, 70, 70, nombresCasillas[i]);
-            this.add(casilla);
-            todasLasCasillas.add(casilla);
-            if (i == 20 || i == 22 || i == 27 || i == 29) {
-                casillasNoComprables.add(casilla);
-            }
-        }
-
-        for (int i = 30; i < 40; i++) {
-            Casilla casilla = new Casilla(10, 10 + (i - 30) * 70, 70, 70, nombresCasillas[i]);
-            this.add(casilla);
-            todasLasCasillas.add(casilla);
-            if (i == 30 || i == 32 || i == 33 || i == 37 || i == 38) {
+            if (i == 0 || i == 2 || i == 7 || i == 10 || i == 17 || i == 20 || i == 22 || i == 30 || i == 33 || i == 36 || i == 38) {
                 casillasNoComprables.add(casilla);
             }
         }
@@ -134,8 +112,7 @@ public class Tablero extends JPanel {
         JLabel lblMonopoly = new JLabel("MONOPOLY") {
             protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g;
-                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                        RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 AffineTransform aT = g2.getTransform();
                 Shape oldshape = g2.getClip();
                 double x = getWidth() / 2.0;
@@ -151,11 +128,29 @@ public class Tablero extends JPanel {
         lblMonopoly.setOpaque(true);
         lblMonopoly.setHorizontalAlignment(SwingConstants.CENTER);
         lblMonopoly.setFont(new Font("Lucida Grande", Font.PLAIN, 40));
-        lblMonopoly.setBounds(269, 277, 263, 55);
-        this.add(lblMonopoly);
+        lblMonopoly.setBounds(269, 350, 263, 55);
+        this.add(lblMonopoly, JLayeredPane.DEFAULT_LAYER);
     }
 
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
+    public void actualizarJugadores() {
+        jugadoresOverlay.repaint();
+    }
+
+    public void moverJugador(Jugador jugador, int pasos) {
+        int nuevaPosicion = (jugador.getPosicion() + pasos) % 40;
+        Casilla casillaAnterior = todasLasCasillas.get(jugador.getPosicion());
+        Casilla nuevaCasilla = todasLasCasillas.get(nuevaPosicion);
+
+        casillaAnterior.eliminarJugador(jugador);
+        nuevaCasilla.agregarJugador(jugador); 
+
+        jugador.setPosicion(nuevaPosicion);
+
+        jugador.setX(nuevaCasilla.getX() + nuevaCasilla.getWidth() / 2 - 10); 
+        jugador.setY(nuevaCasilla.getY() + nuevaCasilla.getHeight() / 2 - 10); 
+
+        actualizarJugadores(); 
     }
 }
+
+

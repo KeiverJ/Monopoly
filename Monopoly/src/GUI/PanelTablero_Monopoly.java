@@ -6,6 +6,7 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.util.List;
 
 /**
  *
@@ -13,7 +14,12 @@ import java.awt.Color;
  */
 public class PanelTablero_Monopoly extends javax.swing.JFrame {
 
-    public PanelTablero_Monopoly() {
+    public List<Jugador> jugadores;
+    private Tablero tablero = new Tablero(6, 6, 790, 790, this);
+    private int indiceJugadorActual = 0;
+
+    public PanelTablero_Monopoly(List<Jugador> jugadores, List<Integer> posicionesJugadores) {
+        this.jugadores = jugadores;
         setUndecorated(true);
         initComponents();
         init2();
@@ -21,20 +27,55 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         panelFondo.setOpaque(false);
         setBackground(new Color(0, 0, 0, 0));
+        asignarNombres(jugadores);
+
+    }
+
+    public List<Jugador> getJugadores() {
+        return jugadores;
+    }
+
+    public void setJugadores(List<Jugador> jugadores) {
+        this.jugadores = jugadores;
     }
 
     private void init2() {
         panelTablero.setLayout(new BorderLayout());
-        Tablero tablero = new Tablero(6, 6, 800, 800);
-        
         panelTablero.add(tablero, BorderLayout.CENTER);
+    }
+
+    private void asignarNombres(List<Jugador> jugadores) {
+        for (int i = 0; i < jugadores.size(); i++) {
+            Jugador jugador = jugadores.get(i);
+            switch (i) {
+                case 0:
+                    lblNombreJ1.setText(jugador.getNombre());
+                    break;
+                case 1:
+                    lblNombreJ2.setText(jugador.getNombre());
+                    break;
+                case 2:
+                    lblNombreJ3.setText(jugador.getNombre());
+                    break;
+                case 3:
+                    lblNombreJ4.setText(jugador.getNombre());
+                    break;
+                case 4:
+                    lblNombreJ5.setText(jugador.getNombre());
+                    break;
+                case 5:
+                    lblNombreJ6.setText(jugador.getNombre());
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btngTamaño = new javax.swing.ButtonGroup();
         panelFondo = new modelo.PanelRedondeado();
         lblCierre = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -45,7 +86,18 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         lblDado = new javax.swing.JLabel();
         jpanelReiniciar = new javax.swing.JPanel();
         lblReiniciar = new javax.swing.JLabel();
-        lblTurno = new javax.swing.JLabel();
+        lblNombreJ3 = new javax.swing.JLabel();
+        lblNombreJ4 = new javax.swing.JLabel();
+        Ficha4 = new javax.swing.JLabel();
+        Ficha3 = new javax.swing.JLabel();
+        lblNombreJ1 = new javax.swing.JLabel();
+        lblNombreJ2 = new javax.swing.JLabel();
+        Ficha2 = new javax.swing.JLabel();
+        Ficha1 = new javax.swing.JLabel();
+        lblNombreJ5 = new javax.swing.JLabel();
+        Ficha5 = new javax.swing.JLabel();
+        Ficha6 = new javax.swing.JLabel();
+        lblNombreJ6 = new javax.swing.JLabel();
         panelTablero = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -144,8 +196,8 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
                 .addComponent(lblLanzarDado, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel2.add(panelBoton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, -1, 50));
-        jPanel2.add(lblDado, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 350, 120, 120));
+        jPanel2.add(panelBoton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 320, -1, 50));
+        jPanel2.add(lblDado, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 460, 120, 120));
 
         jpanelReiniciar.setBackground(new java.awt.Color(177, 156, 217));
 
@@ -185,11 +237,47 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
 
         jPanel2.add(jpanelReiniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 690, 166, 50));
 
-        lblTurno.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        lblTurno.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel2.add(lblTurno, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 220, 20));
+        lblNombreJ3.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
+        lblNombreJ3.setForeground(new java.awt.Color(80, 200, 120));
+        lblNombreJ3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(lblNombreJ3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 100, 40));
 
-        panelFondo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 40, 260, 750));
+        lblNombreJ4.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
+        lblNombreJ4.setForeground(new java.awt.Color(204, 153, 255));
+        lblNombreJ4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNombreJ4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(lblNombreJ4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 100, 40));
+        jPanel2.add(Ficha4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 60, 70));
+
+        Ficha3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(Ficha3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 60, 70));
+
+        lblNombreJ1.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
+        lblNombreJ1.setForeground(new java.awt.Color(220, 20, 60));
+        lblNombreJ1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(lblNombreJ1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 100, 40));
+
+        lblNombreJ2.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
+        lblNombreJ2.setForeground(new java.awt.Color(65, 105, 225));
+        lblNombreJ2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(lblNombreJ2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 100, 40));
+        jPanel2.add(Ficha2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 60, 70));
+        jPanel2.add(Ficha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 60, 70));
+
+        lblNombreJ5.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
+        lblNombreJ5.setForeground(new java.awt.Color(204, 153, 255));
+        lblNombreJ5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNombreJ5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(lblNombreJ5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 100, 40));
+        jPanel2.add(Ficha5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 60, 70));
+        jPanel2.add(Ficha6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 150, 60, 70));
+
+        lblNombreJ6.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
+        lblNombreJ6.setForeground(new java.awt.Color(65, 105, 225));
+        lblNombreJ6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(lblNombreJ6, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, 100, 40));
+
+        panelFondo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 40, 470, 750));
 
         panelTablero.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -197,14 +285,14 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         panelTablero.setLayout(panelTableroLayout);
         panelTableroLayout.setHorizontalGroup(
             panelTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGap(0, 790, Short.MAX_VALUE)
         );
         panelTableroLayout.setVerticalGroup(
             panelTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGap(0, 790, Short.MAX_VALUE)
         );
 
-        panelFondo.add(panelTablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 800, 800));
+        panelFondo.add(panelTablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 790, 790));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -253,7 +341,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
     }//GEN-LAST:event_lblLanzarDadoMouseExited
 
     private void lblLanzarDadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLanzarDadoMousePressed
-
+        lanzarDadosYActualizar();
     }//GEN-LAST:event_lblLanzarDadoMousePressed
 
     private void lblReiniciarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReiniciarMouseEntered
@@ -268,17 +356,47 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
 
     }//GEN-LAST:event_lblReiniciarMousePressed
 
+    public void lanzarDadosYActualizar() {
+        Jugador jugadorActual = getJugadorActual();
+
+        int dado1 = (int) (Math.random() * 6) + 1;
+        int dado2 = (int) (Math.random() * 6) + 1;
+        int pasos = dado1 + dado2;
+
+        System.out.println("Jugador " + jugadorActual.getNombre() + " ha lanzado " + dado1 + " y " + dado2 + " para un total de " + pasos);
+
+        tablero.moverJugador(jugadorActual, pasos);
+        siguienteJugador();
+    }
+
+    public Jugador getJugadorActual() {
+        return jugadores.get(indiceJugadorActual);
+    }
+
+    public void siguienteJugador() {
+        indiceJugadorActual = (indiceJugadorActual + 1) % jugadores.size();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup btngTamaño;
+    private javax.swing.JLabel Ficha1;
+    private javax.swing.JLabel Ficha2;
+    private javax.swing.JLabel Ficha3;
+    private javax.swing.JLabel Ficha4;
+    private javax.swing.JLabel Ficha5;
+    private javax.swing.JLabel Ficha6;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jpanelReiniciar;
     private javax.swing.JLabel lblCierre;
     private javax.swing.JLabel lblDado;
     public javax.swing.JLabel lblLanzarDado;
+    private javax.swing.JLabel lblNombreJ1;
+    private javax.swing.JLabel lblNombreJ2;
+    private javax.swing.JLabel lblNombreJ3;
+    private javax.swing.JLabel lblNombreJ4;
+    private javax.swing.JLabel lblNombreJ5;
+    private javax.swing.JLabel lblNombreJ6;
     private javax.swing.JLabel lblReiniciar;
     private javax.swing.JLabel lblTerminarPartida;
-    private javax.swing.JLabel lblTurno;
     private javax.swing.JPanel panelBoton1;
     private javax.swing.JPanel panelBoton3;
     private javax.swing.JPanel panelFondo;
