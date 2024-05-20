@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
@@ -23,6 +24,8 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
     private int indiceJugadorActual = 0;
     public boolean dadoLanzado = false;
     private boolean puedeLanzarDado = true;
+    private int resultado1;
+    private int resultado2;
 
     public PanelTablero_Monopoly(List<Jugador> jugadores, List<Integer> posicionesJugadores) {
         this.jugadores = jugadores;
@@ -36,6 +39,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         panelFondo.setOpaque(false);
         setBackground(new Color(0, 0, 0, 0));
+        lblSiguienteTurno.setEnabled(false);
     }
 
     private void init2() {
@@ -304,13 +308,11 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         }
 
         dadoLanzado = true;
-        Jugador jugadorActual = getJugadorActual();
-
         Dado dado1 = new Dado();
         Dado dado2 = new Dado();
 
-        int resultado1 = dado1.getValorDado();
-        int resultado2 = dado2.getValorDado();
+        resultado1 = dado1.getValorDado();
+        resultado2 = dado2.getValorDado();
 
         Timer timer = new Timer(50, null);
         timer.start();
@@ -332,17 +334,12 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
                     lblDado1.setIcon(iconoResultado1);
                     lblDado2.setIcon(iconoResultado2);
 
-                    if (jugadorActual.isEncarcelado()) {
-                        tablero.manejarJugadorEnCarcel(jugadorActual, resultado1, resultado2);
-                    } else {
-                        tablero.moverJugador(jugadorActual, resultado1, resultado2);
-                    }
-                    
-                    actualizarDescripcionJugadorActual();
+                    tablero.moverJugador(getJugadorActual(), resultado1, resultado2);
 
-                    if (dado1.getValorDado() != dado2.getValorDado()) {
+                    if (resultado1 != resultado2) {
                         puedeLanzarDado = false;
                         lblLanzarDado.setEnabled(false);
+                        lblSiguienteTurno.setEnabled(true);
                     }
                 }
             }
@@ -379,9 +376,19 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
     }//GEN-LAST:event_lblSiguienteTurnoMouseExited
 
     private void lblSiguienteTurnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSiguienteTurnoMousePressed
-        siguienteJugador();
-        puedeLanzarDado = true;
-        lblLanzarDado.setEnabled(true);
+        Jugador jugadorActual = getJugadorActual();
+
+        if (jugadorActual.isEncarcelado()) {
+            tablero.manejarJugadorEnCarcel(jugadorActual, 0, 0);
+            puedeLanzarDado = jugadorActual.isEncarcelado();
+            lblLanzarDado.setEnabled(puedeLanzarDado);
+        } else {
+            indiceJugadorActual = (indiceJugadorActual + 1) % jugadores.size();
+            actualizarDescripcionJugadorActual();
+            puedeLanzarDado = true;
+            lblLanzarDado.setEnabled(true);
+            lblSiguienteTurno.setEnabled(false);
+        }
     }//GEN-LAST:event_lblSiguienteTurnoMousePressed
 
     private void lblTerminarPartidaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTerminarPartidaMouseEntered
@@ -400,10 +407,6 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         main.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_lblTerminarPartidaMousePressed
-
-    public void siguienteJugador() {
-        indiceJugadorActual = (indiceJugadorActual + 1) % jugadores.size();
-    }
 
     public Jugador obtenerJugadorPorNumero(int numeroJugador) {
         for (Jugador jugador : jugadores) {

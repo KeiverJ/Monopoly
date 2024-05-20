@@ -145,8 +145,6 @@ public class Tablero extends JLayeredPane {
 
                 jugadorActual.pagarRentaEnCasilla(casillaActual.numero, casillaActual.getPrecioAlquiler());
                 panelTablero.actualizarDescripcionJugadorActual();
-                System.out.println(impuestosAcumulados);
-
             }
         });
 
@@ -154,36 +152,30 @@ public class Tablero extends JLayeredPane {
     }
 
     public void manejarJugadorEnCarcel(Jugador jugador, int resultado1, int resultado2) {
-        if (jugador.isEncarcelado()) {
-            if (!jugador.isIntentoDadosIgualesRealizado() && !jugador.isIntentoDadosIgualesFallido()) {
-                int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas pagar 50 para salir de la cárcel?", "Salir de la cárcel", JOptionPane.YES_NO_OPTION);
-                if (opcion == JOptionPane.YES_OPTION) {
-                    jugador.restarDinero(50);
-                    jugador.setEncarcelado(false);
-                    System.out.println(jugador.getNombre() + " ha pagado 50 para salir de la cárcel.");
-                    moverJugador(jugador, resultado1, resultado2);
-                } else {
-                    System.out.println(jugador.getNombre() + " no ha pagado para salir de la cárcel.");
-                    jugador.setIntentoDadosIgualesRealizado(true);
-                }
-            } else if (!jugador.isIntentoDadosIgualesRealizado()) {
-                if (resultado1 == resultado2) {
-                    jugador.setEncarcelado(false);
-                    System.out.println(jugador.getNombre() + " ha salido de la cárcel con un doble!");
-                    moverJugador(jugador, resultado1, resultado2);
-                } else {
-                    jugador.incrementarTurnosEnCarcel();
-                    if (jugador.getTurnosEnCarcel() >= 3) {
+        if (resultado1 == 0 && resultado2 == 0) {
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas pagar 50 para salir de la cárcel?", "Salir de la cárcel", JOptionPane.YES_NO_OPTION);
+            if (opcion == JOptionPane.YES_OPTION) {
+                jugador.restarDinero(50);
+                jugador.setEncarcelado(false);
+                System.out.println(jugador.getNombre() + " ha pagado 50 para salir de la cárcel.");
+            } else {
+                System.out.println(jugador.getNombre() + " no ha pagado para salir de la cárcel.");
+                jugador.setIntentoDadosIgualesRealizado(true);
+            }
+        } else {
+            if (jugador.isEncarcelado()) {
+                if (!jugador.isIntentoDadosIgualesRealizado() && !jugador.isIntentoDadosIgualesFallido()) {
+                    int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas pagar 50 para salir de la cárcel?", "Salir de la cárcel", JOptionPane.YES_NO_OPTION);
+                    if (opcion == JOptionPane.YES_OPTION) {
                         jugador.restarDinero(50);
                         jugador.setEncarcelado(false);
                         System.out.println(jugador.getNombre() + " ha pagado 50 para salir de la cárcel.");
                         moverJugador(jugador, resultado1, resultado2);
                     } else {
-                        System.out.println(jugador.getNombre() + " sigue en la cárcel. Turnos en cárcel: " + jugador.getTurnosEnCarcel());
+                        System.out.println(jugador.getNombre() + " no ha pagado para salir de la cárcel.");
+                        jugador.setIntentoDadosIgualesRealizado(true);
                     }
-                }
-            } else {
-                if (!jugador.isIntentoDadosIgualesFallido()) {
+                } else if (!jugador.isIntentoDadosIgualesRealizado()) {
                     if (resultado1 == resultado2) {
                         jugador.setEncarcelado(false);
                         System.out.println(jugador.getNombre() + " ha salido de la cárcel con un doble!");
@@ -200,14 +192,32 @@ public class Tablero extends JLayeredPane {
                         }
                     }
                 } else {
-                    jugador.restarDinero(50);
-                    jugador.setEncarcelado(false);
-                    System.out.println(jugador.getNombre() + " ha pagado 50 para salir de la cárcel.");
-                    moverJugador(jugador, resultado1, resultado2);
+                    if (!jugador.isIntentoDadosIgualesFallido()) {
+                        if (resultado1 == resultado2) {
+                            jugador.setEncarcelado(false);
+                            System.out.println(jugador.getNombre() + " ha salido de la cárcel con un doble!");
+                            moverJugador(jugador, resultado1, resultado2);
+                        } else {
+                            jugador.incrementarTurnosEnCarcel();
+                            if (jugador.getTurnosEnCarcel() >= 3) {
+                                jugador.restarDinero(50);
+                                jugador.setEncarcelado(false);
+                                System.out.println(jugador.getNombre() + " ha pagado 50 para salir de la cárcel.");
+                                moverJugador(jugador, resultado1, resultado2);
+                            } else {
+                                System.out.println(jugador.getNombre() + " sigue en la cárcel. Turnos en cárcel: " + jugador.getTurnosEnCarcel());
+                            }
+                        }
+                    } else {
+                        jugador.restarDinero(50);
+                        jugador.setEncarcelado(false);
+                        System.out.println(jugador.getNombre() + " ha pagado 50 para salir de la cárcel.");
+                        moverJugador(jugador, resultado1, resultado2);
+                    }
                 }
+            } else {
+                moverJugador(jugador, resultado1, resultado2);
             }
-        } else {
-            moverJugador(jugador, resultado1, resultado2);
         }
     }
 
@@ -216,7 +226,6 @@ public class Tablero extends JLayeredPane {
             case "Cárcel/Visita":
                 break;
             case "Ir a la cárcel":
-                jugador.setPosicion(10);
                 jugador.setEncarcelado(true);
                 break;
             case "Free Parking":
