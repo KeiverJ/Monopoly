@@ -65,7 +65,7 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panelFondo.setBackground(new java.awt.Color(248, 242, 231));
+        panelFondo.setBackground(new java.awt.Color(245, 245, 245));
         panelFondo.setPreferredSize(new java.awt.Dimension(416, 315));
         panelFondo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -92,7 +92,7 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
         panelFondo.add(lblCierre);
         lblCierre.setBounds(630, 10, 30, 32);
 
-        txtJugador2.setBackground(new java.awt.Color(210, 232, 232));
+        txtJugador2.setBackground(new java.awt.Color(255, 217, 61));
         txtJugador2.setFont(new java.awt.Font("Montserrat", 1, 28)); // NOI18N
         txtJugador2.setForeground(new java.awt.Color(0, 0, 0));
         txtJugador2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -121,7 +121,7 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
         panelFondo.add(txtJugador2);
         txtJugador2.setBounds(60, 160, 230, 40);
 
-        txtJugador1.setBackground(new java.awt.Color(244, 216, 204));
+        txtJugador1.setBackground(new java.awt.Color(255, 107, 107));
         txtJugador1.setFont(new java.awt.Font("Montserrat", 1, 28)); // NOI18N
         txtJugador1.setForeground(new java.awt.Color(0, 0, 0));
         txtJugador1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -157,7 +157,7 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
         panelFondo.add(lblTitulo);
         lblTitulo.setBounds(130, 30, 420, 42);
 
-        txtJugador3.setBackground(new java.awt.Color(232, 229, 211));
+        txtJugador3.setBackground(new java.awt.Color(111, 255, 233));
         txtJugador3.setFont(new java.awt.Font("Montserrat", 1, 28)); // NOI18N
         txtJugador3.setForeground(new java.awt.Color(0, 0, 0));
         txtJugador3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -186,7 +186,7 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
         panelFondo.add(txtJugador3);
         txtJugador3.setBounds(60, 220, 230, 40);
 
-        txtJugador4.setBackground(new java.awt.Color(215, 234, 205));
+        txtJugador4.setBackground(new java.awt.Color(77, 150, 255));
         txtJugador4.setFont(new java.awt.Font("Montserrat", 1, 28)); // NOI18N
         txtJugador4.setForeground(new java.awt.Color(0, 0, 0));
         txtJugador4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -215,7 +215,7 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
         panelFondo.add(txtJugador4);
         txtJugador4.setBounds(400, 100, 230, 40);
 
-        panelBoton.setBackground(new java.awt.Color(90, 114, 179));
+        panelBoton.setBackground(new java.awt.Color(23, 165, 137));
 
         lblIniciar.setBackground(new java.awt.Color(255, 255, 255));
         lblIniciar.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
@@ -253,7 +253,7 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
         panelFondo.add(panelBoton);
         panelBoton.setBounds(260, 290, 160, 50);
 
-        txtJugador5.setBackground(new java.awt.Color(210, 232, 232));
+        txtJugador5.setBackground(new java.awt.Color(255, 183, 221));
         txtJugador5.setFont(new java.awt.Font("Montserrat", 1, 28)); // NOI18N
         txtJugador5.setForeground(new java.awt.Color(0, 0, 0));
         txtJugador5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -282,7 +282,7 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
         panelFondo.add(txtJugador5);
         txtJugador5.setBounds(400, 160, 230, 40);
 
-        txtJugador6.setBackground(new java.awt.Color(232, 229, 211));
+        txtJugador6.setBackground(new java.awt.Color(204, 229, 255));
         txtJugador6.setFont(new java.awt.Font("Montserrat", 1, 28)); // NOI18N
         txtJugador6.setForeground(new java.awt.Color(0, 0, 0));
         txtJugador6.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -376,11 +376,11 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
     }//GEN-LAST:event_lblIniciarMousePressed
 
     private void lblIniciarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIniciarMouseExited
-        panelBoton.setBackground(new Color(90, 114, 179));
+        panelBoton.setBackground(new Color(23, 165, 137));
     }//GEN-LAST:event_lblIniciarMouseExited
 
     private void lblIniciarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIniciarMouseEntered
-        panelBoton.setBackground(new Color(120, 142, 205));
+        panelBoton.setBackground(new Color(32, 210, 171));
     }//GEN-LAST:event_lblIniciarMouseEntered
 
     private void txtJugador4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtJugador4KeyTyped
@@ -395,7 +395,7 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
     }//GEN-LAST:event_txtJugador4MouseExited
 
     private void txtJugador4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtJugador4MouseEntered
-        Border borde = BorderFactory.createLineBorder(new Color(135, 183, 159), 2);
+        Border borde = BorderFactory.createLineBorder(new Color(8, 98, 207), 2);
         txtJugador4.setBorder(borde);
     }//GEN-LAST:event_txtJugador4MouseEntered
 
@@ -423,7 +423,7 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
     }//GEN-LAST:event_txtJugador3MouseExited
 
     private void txtJugador3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtJugador3MouseEntered
-        Border borde = BorderFactory.createLineBorder(new Color(208, 218, 235), 2);
+        Border borde = BorderFactory.createLineBorder(new Color(46, 182, 125), 2);
         txtJugador3.setBorder(borde);
     }//GEN-LAST:event_txtJugador3MouseEntered
 
@@ -452,7 +452,7 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
     }//GEN-LAST:event_txtJugador1MouseExited
 
     private void txtJugador1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtJugador1MouseEntered
-        Border borde = BorderFactory.createLineBorder(new Color(230, 167, 136), 2);
+        Border borde = BorderFactory.createLineBorder(new Color(198, 48, 48), 2);
         txtJugador1.setBorder(borde);
     }//GEN-LAST:event_txtJugador1MouseEntered
 
@@ -480,7 +480,7 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
     }//GEN-LAST:event_txtJugador2MouseExited
 
     private void txtJugador2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtJugador2MouseEntered
-        Border borde = BorderFactory.createLineBorder(new Color(137, 169, 192), 2);
+        Border borde = BorderFactory.createLineBorder(new Color(183, 140, 0), 2);
         txtJugador2.setBorder(borde);
     }//GEN-LAST:event_txtJugador2MouseEntered
 
@@ -521,7 +521,7 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
     }//GEN-LAST:event_txtJugador5FocusLost
 
     private void txtJugador5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtJugador5MouseEntered
-        Border borde = BorderFactory.createLineBorder(new Color(137, 169, 192), 2);
+        Border borde = BorderFactory.createLineBorder(new Color(108, 117, 125), 2);
         txtJugador5.setBorder(borde);
     }//GEN-LAST:event_txtJugador5MouseEntered
 

@@ -41,6 +41,7 @@ public class Tablero extends JLayeredPane {
             "Avenida Pacífico", "Avenida Carolina del Norte", "Arca Comunal", "Avenida Pennsylvania", "Ferrocarril Corto",
             "Casualidad", "Paseo del Parque", "Impuesto de Lujo", "El Muelle"
         };
+        
 
         int[][] coordenadasCasillas = {
             {710, 710}, {640, 710}, {570, 710}, {500, 710}, {430, 710}, {360, 710}, {290, 710}, {220, 710}, {150, 710}, {80, 710}, {10, 710},

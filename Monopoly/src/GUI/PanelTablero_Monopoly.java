@@ -66,7 +66,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panelFondo.setBackground(new java.awt.Color(240, 232, 216));
+        panelFondo.setBackground(new java.awt.Color(245, 245, 245));
         panelFondo.setPreferredSize(new java.awt.Dimension(400, 500));
         panelFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -87,10 +87,10 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         });
         panelFondo.add(lblCierre, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 10, -1, -1));
 
-        jPanel2.setBackground(new java.awt.Color(240, 232, 216));
+        jPanel2.setBackground(new java.awt.Color(245, 245, 245));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        panelBoton.setBackground(new java.awt.Color(140, 211, 179));
+        panelBoton.setBackground(new java.awt.Color(40, 167, 69));
 
         lblLanzarDado.setBackground(new java.awt.Color(255, 255, 255));
         lblLanzarDado.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
@@ -134,7 +134,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 330, 260));
 
-        panelComprar.setBackground(new java.awt.Color(140, 211, 179));
+        panelComprar.setBackground(new java.awt.Color(255, 193, 7));
 
         lblComprar.setBackground(new java.awt.Color(255, 255, 255));
         lblComprar.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
@@ -158,7 +158,9 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         panelComprar.setLayout(panelComprarLayout);
         panelComprarLayout.setHorizontalGroup(
             panelComprarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblComprar, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelComprarLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelComprarLayout.setVerticalGroup(
             panelComprarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,7 +171,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
 
         jPanel2.add(panelComprar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 370, 180, 50));
 
-        panelTurno.setBackground(new java.awt.Color(140, 211, 179));
+        panelTurno.setBackground(new java.awt.Color(23, 162, 184));
 
         lblSiguienteTurno.setBackground(new java.awt.Color(255, 255, 255));
         lblSiguienteTurno.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
@@ -208,7 +210,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         jPanel2.add(lblDado1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 530, 120, 120));
         jPanel2.add(lblDado2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 530, 120, 120));
 
-        panelTerminar.setBackground(new java.awt.Color(140, 211, 179));
+        panelTerminar.setBackground(new java.awt.Color(220, 53, 69));
 
         lblTerminarPartida.setBackground(new java.awt.Color(255, 255, 255));
         lblTerminarPartida.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
@@ -232,9 +234,9 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         panelTerminar.setLayout(panelTerminarLayout);
         panelTerminarLayout.setHorizontalGroup(
             panelTerminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTerminarLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblTerminarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(panelTerminarLayout.createSequentialGroup()
+                .addComponent(lblTerminarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         panelTerminarLayout.setVerticalGroup(
             panelTerminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,11 +291,11 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
     }//GEN-LAST:event_lblCierreMouseExited
 
     private void lblLanzarDadoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLanzarDadoMouseEntered
-        panelBoton.setBackground(new Color(183, 221, 200));
+        panelBoton.setBackground(new Color(72, 214, 141));
     }//GEN-LAST:event_lblLanzarDadoMouseEntered
 
     private void lblLanzarDadoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLanzarDadoMouseExited
-        panelBoton.setBackground(new Color(140, 211, 179));
+        panelBoton.setBackground(new Color(40, 167, 69));
     }//GEN-LAST:event_lblLanzarDadoMouseExited
 
     private void lblLanzarDadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLanzarDadoMousePressed
@@ -341,11 +343,11 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
     }//GEN-LAST:event_lblLanzarDadoMousePressed
 
     private void lblComprarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblComprarMouseEntered
-        // TODO add your handling code here:
+        panelComprar.setBackground(new Color(255, 213, 79));
     }//GEN-LAST:event_lblComprarMouseEntered
 
     private void lblComprarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblComprarMouseExited
-        // TODO add your handling code here:
+        panelComprar.setBackground(new Color(255, 193, 7));
     }//GEN-LAST:event_lblComprarMouseExited
 
     private void lblComprarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblComprarMousePressed
@@ -362,11 +364,11 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
     }//GEN-LAST:event_lblComprarMousePressed
 
     private void lblSiguienteTurnoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSiguienteTurnoMouseEntered
-        // TODO add your handling code here:
+        panelTurno.setBackground(new Color(81, 198, 216));
     }//GEN-LAST:event_lblSiguienteTurnoMouseEntered
 
     private void lblSiguienteTurnoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSiguienteTurnoMouseExited
-        // TODO add your handling code here:
+        panelTurno.setBackground(new Color(23, 162, 184));
     }//GEN-LAST:event_lblSiguienteTurnoMouseExited
 
     private void lblSiguienteTurnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSiguienteTurnoMousePressed
@@ -376,14 +378,17 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
     }//GEN-LAST:event_lblSiguienteTurnoMousePressed
 
     private void lblTerminarPartidaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTerminarPartidaMouseEntered
-        // TODO add your handling code here:
+        panelTerminar.setBackground(new Color(231, 111, 118));
     }//GEN-LAST:event_lblTerminarPartidaMouseEntered
 
     private void lblTerminarPartidaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTerminarPartidaMouseExited
-        // TODO add your handling code here:
+        panelTerminar.setBackground(new Color(220, 53, 69));
     }//GEN-LAST:event_lblTerminarPartidaMouseExited
 
     private void lblTerminarPartidaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTerminarPartidaMousePressed
+        Casilla.resetTotalCasillas();
+        revalidate();
+        repaint();
         PanelMain_Monopoly main = new PanelMain_Monopoly();
         main.setVisible(true);
         this.dispose();

@@ -94,7 +94,6 @@ public class Casilla extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         if (this.numero == 1 || this.numero == 3 || this.numero == 4) {
             g.drawRect(0, 0, this.getWidth(), 15);
             g.setColor(Color.BLUE);
@@ -115,6 +114,10 @@ public class Casilla extends JPanel {
             g.setColor(Color.GREEN);
             g.fillRect(0, 0, this.getWidth(), 15);
         }
+    }
+
+    public static void resetTotalCasillas() {
+        totalCasillas = 0;
     }
 
 }
