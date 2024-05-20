@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
 
 public class Tablero extends JLayeredPane {
@@ -16,6 +17,7 @@ public class Tablero extends JLayeredPane {
     public ArrayList<Casilla> todasLasCasillas = new ArrayList<>();
     public ArrayList<Casilla> casillasNoComprables = new ArrayList<>();
     private PanelTablero_Monopoly panelTablero;
+    private int impuestosAcumulados = 0;
     private JugadoresOverlay jugadoresOverlay;
 
     public Tablero(int xCoord, int yCoord, int width, int height, PanelTablero_Monopoly panelTablero) {
@@ -41,7 +43,6 @@ public class Tablero extends JLayeredPane {
             "Avenida Pacífico", "Avenida Carolina del Norte", "Arca Comunal", "Avenida Pennsylvania", "Ferrocarril Corto",
             "Casualidad", "Paseo del Parque", "Impuesto de Lujo", "El Muelle"
         };
-        
 
         int[][] coordenadasCasillas = {
             {710, 710}, {640, 710}, {570, 710}, {500, 710}, {430, 710}, {360, 710}, {290, 710}, {220, 710}, {150, 710}, {80, 710}, {10, 710},
@@ -56,7 +57,8 @@ public class Tablero extends JLayeredPane {
             Casilla casilla = new Casilla(x, y, 70, 70, nombresCasillas[i]);
             this.add(casilla, JLayeredPane.DEFAULT_LAYER);
             todasLasCasillas.add(casilla);
-            if (i == 0 || i == 2 || i == 7 || i == 10 || i == 17 || i == 20 || i == 22 || i == 30 || i == 33 || i == 36 || i == 38) {
+
+            if (i == 0 || i == 2 || i == 4 || i == 7 || i == 10 || i == 17 || i == 20 || i == 22 || i == 30 || i == 33 || i == 36 || i == 38) {
                 casillasNoComprables.add(casilla);
             }
         }
@@ -118,6 +120,126 @@ public class Tablero extends JLayeredPane {
         this.add(lblMonopolyImage, JLayeredPane.DEFAULT_LAYER);
     }
 
+    public void actualizarJugadores() {
+        jugadoresOverlay.repaint();
+    }
+
+    public void moverJugador(Jugador jugador, int resultado1, int resultado2) {
+        int resultado = resultado1 + resultado2;
+        int viejaPos = jugador.getPosicion();
+        int nuevaPos = (viejaPos + resultado) % 40;
+        Casilla nuevaCasilla = todasLasCasillas.get(nuevaPos);
+
+        FichaAnimada fichaAnimada = new FichaAnimada(jugador, resultado, this, 200);
+        fichaAnimada.setOnFinishListener(new FichaAnimada.OnFinishListener() {
+            @Override
+            public void onFinish() {
+                jugador.setPosicion(nuevaPos);
+                nuevaCasilla.agregarJugador(jugador);
+                actualizarJugadores();
+
+                Jugador jugadorActual = panelTablero.getJugadorActual();
+                Casilla casillaActual = todasLasCasillas.get(jugadorActual.getPosicion());
+
+                manejarCasillaEspecial(jugadorActual, casillaActual);
+
+                jugadorActual.pagarRentaEnCasilla(casillaActual.numero, casillaActual.getPrecioAlquiler());
+                panelTablero.actualizarDescripcionJugadorActual();
+                System.out.println(impuestosAcumulados);
+
+            }
+        });
+
+        fichaAnimada.start();
+    }
+
+    public void manejarJugadorEnCarcel(Jugador jugador, int resultado1, int resultado2) {
+        if (jugador.isEncarcelado()) {
+            if (!jugador.isIntentoDadosIgualesRealizado() && !jugador.isIntentoDadosIgualesFallido()) {
+                int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas pagar 50 para salir de la cárcel?", "Salir de la cárcel", JOptionPane.YES_NO_OPTION);
+                if (opcion == JOptionPane.YES_OPTION) {
+                    jugador.restarDinero(50);
+                    jugador.setEncarcelado(false);
+                    System.out.println(jugador.getNombre() + " ha pagado 50 para salir de la cárcel.");
+                    moverJugador(jugador, resultado1, resultado2);
+                } else {
+                    System.out.println(jugador.getNombre() + " no ha pagado para salir de la cárcel.");
+                    jugador.setIntentoDadosIgualesRealizado(true);
+                }
+            } else if (!jugador.isIntentoDadosIgualesRealizado()) {
+                if (resultado1 == resultado2) {
+                    jugador.setEncarcelado(false);
+                    System.out.println(jugador.getNombre() + " ha salido de la cárcel con un doble!");
+                    moverJugador(jugador, resultado1, resultado2);
+                } else {
+                    jugador.incrementarTurnosEnCarcel();
+                    if (jugador.getTurnosEnCarcel() >= 3) {
+                        jugador.restarDinero(50);
+                        jugador.setEncarcelado(false);
+                        System.out.println(jugador.getNombre() + " ha pagado 50 para salir de la cárcel.");
+                        moverJugador(jugador, resultado1, resultado2);
+                    } else {
+                        System.out.println(jugador.getNombre() + " sigue en la cárcel. Turnos en cárcel: " + jugador.getTurnosEnCarcel());
+                    }
+                }
+            } else {
+                if (!jugador.isIntentoDadosIgualesFallido()) {
+                    if (resultado1 == resultado2) {
+                        jugador.setEncarcelado(false);
+                        System.out.println(jugador.getNombre() + " ha salido de la cárcel con un doble!");
+                        moverJugador(jugador, resultado1, resultado2);
+                    } else {
+                        jugador.incrementarTurnosEnCarcel();
+                        if (jugador.getTurnosEnCarcel() >= 3) {
+                            jugador.restarDinero(50);
+                            jugador.setEncarcelado(false);
+                            System.out.println(jugador.getNombre() + " ha pagado 50 para salir de la cárcel.");
+                            moverJugador(jugador, resultado1, resultado2);
+                        } else {
+                            System.out.println(jugador.getNombre() + " sigue en la cárcel. Turnos en cárcel: " + jugador.getTurnosEnCarcel());
+                        }
+                    }
+                } else {
+                    jugador.restarDinero(50);
+                    jugador.setEncarcelado(false);
+                    System.out.println(jugador.getNombre() + " ha pagado 50 para salir de la cárcel.");
+                    moverJugador(jugador, resultado1, resultado2);
+                }
+            }
+        } else {
+            moverJugador(jugador, resultado1, resultado2);
+        }
+    }
+
+    private void manejarCasillaEspecial(Jugador jugador, Casilla casilla) {
+        switch (casilla.getNombre()) {
+            case "Cárcel/Visita":
+                break;
+            case "Ir a la cárcel":
+                jugador.setPosicion(10);
+                jugador.setEncarcelado(true);
+                break;
+            case "Free Parking":
+                jugador.sumarDinero(impuestosAcumulados);
+                impuestosAcumulados = 0;
+                break;
+            case "Impuesto sobre el ingreso":
+                int impuestoIngreso = 200;
+                jugador.restarDinero(impuestoIngreso);
+                impuestosAcumulados += impuestoIngreso;
+                JOptionPane.showMessageDialog(null, jugador.getNombre() + " ha pagado " + impuestoIngreso + " de impuestos sobre el ingreso.", "Impuestos Pagados", JOptionPane.INFORMATION_MESSAGE);
+                break;
+            case "Impuesto de Lujo":
+                int impuestoLujo = 100;
+                jugador.restarDinero(impuestoLujo);
+                impuestosAcumulados += impuestoLujo;
+                JOptionPane.showMessageDialog(null, jugador.getNombre() + " ha pagado " + impuestoLujo + " de impuesto de lujo.", "Impuestos Pagados", JOptionPane.INFORMATION_MESSAGE);
+                break;
+            default:
+                break;
+        }
+    }
+
     private BufferedImage rotarImagen(Image img, double angle) {
         int width = img.getWidth(null);
         int height = img.getHeight(null);
@@ -155,32 +277,5 @@ public class Tablero extends JLayeredPane {
         }
 
         return srcImg.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
-    }
-
-    public void actualizarJugadores() {
-        jugadoresOverlay.repaint();
-    }
-
-    public void moverJugador(Jugador jugador, int resultado) {
-        int viejaPos = jugador.getPosicion();
-        int nuevaPos = (viejaPos + resultado) % 40;
-        Casilla nuevaCasilla = todasLasCasillas.get(nuevaPos);
-
-        FichaAnimada fichaAnimada = new FichaAnimada(jugador, resultado, this, 200);
-        fichaAnimada.setOnFinishListener(new FichaAnimada.OnFinishListener() {
-            @Override
-            public void onFinish() {
-                jugador.setPosicion(nuevaPos);
-                nuevaCasilla.agregarJugador(jugador);
-                actualizarJugadores();
-
-                Jugador jugadorActual = panelTablero.getJugadorActual();
-                Casilla casillaActual = todasLasCasillas.get(jugadorActual.getPosicion());
-                jugadorActual.pagarRentaEnCasilla(casillaActual.numero, casillaActual.getPrecioAlquiler());
-                panelTablero.actualizarDescripcionJugadorActual();
-            }
-        });
-
-        fichaAnimada.start();
     }
 }

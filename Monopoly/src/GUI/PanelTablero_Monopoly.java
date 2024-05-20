@@ -309,6 +309,9 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         Dado dado1 = new Dado();
         Dado dado2 = new Dado();
 
+        int resultado1 = dado1.getValorDado();
+        int resultado2 = dado2.getValorDado();
+
         Timer timer = new Timer(50, null);
         timer.start();
 
@@ -329,8 +332,12 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
                     lblDado1.setIcon(iconoResultado1);
                     lblDado2.setIcon(iconoResultado2);
 
-                    int resultado = dado1.getValorDado() + dado2.getValorDado();
-                    tablero.moverJugador(jugadorActual, resultado);
+                    if (jugadorActual.isEncarcelado()) {
+                        tablero.manejarJugadorEnCarcel(jugadorActual, resultado1, resultado2);
+                    } else {
+                        tablero.moverJugador(jugadorActual, resultado1, resultado2);
+                    }
+                    
                     actualizarDescripcionJugadorActual();
 
                     if (dado1.getValorDado() != dado2.getValorDado()) {

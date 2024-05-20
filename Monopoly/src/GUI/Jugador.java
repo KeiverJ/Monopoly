@@ -18,6 +18,10 @@ public class Jugador {
     private ArrayList<Integer> propiedades = new ArrayList<>();
     private int dinero = 3200;
     private PanelTablero_Monopoly panelTablero;
+    private boolean encarcelado;
+    private int turnosEnCarcel;
+    private boolean intentoDadosIgualesRealizado = false;
+    private int intentosDadosIgualesFallidos = 0;
 
     public Jugador(String nombre, int numeroJugador, Color color, int x, int y) {
         this.color = color;
@@ -27,6 +31,8 @@ public class Jugador {
         this.posicion = posicion;
         this.numeroJugador = numeroJugador;
         this.panelTablero = panelTablero;
+        this.encarcelado = false;
+        this.turnosEnCarcel = -1;
     }
 
     public void setPanelTablero(PanelTablero_Monopoly panelTablero) {
@@ -81,6 +87,25 @@ public class Jugador {
         return dinero;
     }
 
+    public boolean isEncarcelado() {
+        return encarcelado;
+    }
+
+    public void setEncarcelado(boolean encarcelado) {
+        this.encarcelado = encarcelado;
+        this.turnosEnCarcel = encarcelado ? 0 : -1;
+    }
+
+    public int getTurnosEnCarcel() {
+        return turnosEnCarcel;
+    }
+
+    public void incrementarTurnosEnCarcel() {
+        if (encarcelado) {
+            turnosEnCarcel++;
+        }
+    }
+
     public void restarDinero(int cantidad) {
         if (cantidad > dinero) {
             System.out.println("¡El jugador " + numeroJugador + " se ha quedado en bancarrota!");
@@ -104,6 +129,22 @@ public class Jugador {
 
     public boolean tienePropiedadEnCasilla(int numeroCasilla) {
         return propiedades.contains(numeroCasilla);
+    }
+
+    public boolean isIntentoDadosIgualesRealizado() {
+        return intentoDadosIgualesRealizado;
+    }
+
+    public void setIntentoDadosIgualesRealizado(boolean intentoDadosIgualesRealizado) {
+        this.intentoDadosIgualesRealizado = intentoDadosIgualesRealizado;
+    }
+
+    public boolean isIntentoDadosIgualesFallido() {
+        return intentosDadosIgualesFallidos >= 3;
+    }
+
+    public void incrementarIntentosDadosIgualesFallidos() {
+        intentosDadosIgualesFallidos++;
     }
 
     public void comprarPropiedadEnCasilla(int numeroCasilla, int precio) {
@@ -130,7 +171,7 @@ public class Jugador {
                 propietario.sumarDinero(precioAlquiler);
                 JOptionPane.showMessageDialog(panelTablero, "Jugador " + this.getNombre() + " pago $" + precioAlquiler + " de renta a " + propietario.getNombre());
             }
-        } 
+        }
     }
 
     static HashMap<Integer, Integer> registroPropiedad = new HashMap<>();
