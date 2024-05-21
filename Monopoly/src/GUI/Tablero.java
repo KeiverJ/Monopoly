@@ -228,6 +228,7 @@ public class Tablero extends JLayeredPane {
             case "Cárcel/Visita":
                 break;
             case "Ir a la cárcel":
+                jugador.setPosicion(10);
                 jugador.setEncarcelado(true);
                 break;
             case "Free Parking":
