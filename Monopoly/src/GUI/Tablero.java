@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -248,6 +249,64 @@ public class Tablero extends JLayeredPane {
             default:
                 break;
         }
+    }
+
+    public String seleccionarPropiedad(Jugador vendedor) {
+        List<Integer> propiedades = vendedor.getPropiedades();
+        if (propiedades.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No tienes propiedades para vender.");
+            return null;
+        }
+
+        String[] opciones = propiedades.stream()
+                .map(numero -> todasLasCasillas.get(numero).getNombre())
+                .toArray(String[]::new);
+
+        return (String) JOptionPane.showInputDialog(
+                this,
+                "Selecciona la propiedad que deseas vender:",
+                "Seleccionar Propiedad",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                opciones,
+                opciones[0]);
+    }
+
+    public Jugador seleccionarComprador() {
+        String[] opciones = panelTablero.jugadores.stream()
+                .filter(jugador -> jugador != panelTablero.getJugadorActual())
+                .map(Jugador::getNombre)
+                .toArray(String[]::new);
+
+        String seleccion = (String) JOptionPane.showInputDialog(
+                this,
+                "Selecciona el jugador comprador:",
+                "Seleccionar Comprador",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                opciones,
+                opciones[0]);
+
+        if (seleccion != null) {
+            for (Jugador jugador : panelTablero.jugadores) {
+                if (jugador.getNombre().equals(seleccion)) {
+                    return jugador;
+                }
+            }
+        }
+        return null;
+    }
+
+    public int obtenerPrecioVenta() {
+        String input = JOptionPane.showInputDialog(this, "Ingresa el precio de venta:");
+        if (input != null) {
+            try {
+                return Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Precio inválido. Inténtalo de nuevo.");
+            }
+        }
+        return -1;
     }
 
     private BufferedImage rotarImagen(Image img, double angle) {

@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -376,7 +377,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
                     tablero.manejarJugadorEnCarcel(jugadorActual, resultado1, resultado2);
 
                     if (!jugadorActual.isEncarcelado() && !jugadorActual.isDebeMoverseProximoTurno()) {
-                        tablero.moverJugador(jugadorActual, 2, 2);
+                        tablero.moverJugador(jugadorActual, resultado1, resultado2);
                     } else if (jugadorActual.isDebeMoverseProximoTurno()) {
                         jugadorActual.setDebeMoverseProximoTurno(false);
                         puedeLanzarDado = false;
@@ -411,7 +412,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
                 jugadorActual.comprarPropiedadEnCasilla(casillaActual.numero, casillaActual.getPrecio());
                 actualizarDescripcionJugadorActual();
             } else {
-                System.out.println("Esta casilla no es comprable.");
+                JOptionPane.showMessageDialog(this, "Esta casilla no es comprable.");
             }
         }
     }//GEN-LAST:event_lblComprarMousePressed
@@ -461,7 +462,37 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
     }//GEN-LAST:event_lblComprarPropiedadMouseExited
 
     private void lblComprarPropiedadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblComprarPropiedadMousePressed
-        // TODO add your handling code here:
+        Jugador vendedor = getJugadorActual();
+        String nombrePropiedad = tablero.seleccionarPropiedad(vendedor);
+        if (nombrePropiedad == null) {
+            return; 
+        }
+
+        int numeroPropiedad = -1;
+        for (int i = 0; i < tablero.todasLasCasillas.size(); i++) {
+            if (tablero.todasLasCasillas.get(i).getNombre().equals(nombrePropiedad)) {
+                numeroPropiedad = i;
+                break;
+            }
+        }
+
+        if (numeroPropiedad == -1) {
+            JOptionPane.showMessageDialog(panelTablero, "Error al obtener el número de la propiedad.");
+            return;
+        }
+
+        Jugador comprador = tablero.seleccionarComprador();
+        if (comprador == null) {
+            JOptionPane.showMessageDialog(panelTablero, "No se seleccionó un comprador.");
+            return;
+        }
+
+        int precioVenta = tablero.obtenerPrecioVenta();
+        if (precioVenta == -1) {
+            return; 
+        }
+
+        vendedor.venderPropiedadAJugador(numeroPropiedad, comprador, precioVenta);
     }//GEN-LAST:event_lblComprarPropiedadMousePressed
 
     public Jugador obtenerJugadorPorNumero(int numeroJugador) {

@@ -49,8 +49,6 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        rbtTamañoTablero = new javax.swing.ButtonGroup();
-        rbtJugadores = new javax.swing.ButtonGroup();
         panelFondo = new modelo.PanelRedondeado();
         lblCierre = new javax.swing.JLabel();
         txtJugador2 = new javax.swing.JTextField();
@@ -94,8 +92,9 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
 
         txtJugador2.setBackground(new java.awt.Color(255, 217, 61));
         txtJugador2.setFont(new java.awt.Font("Montserrat", 1, 28)); // NOI18N
-        txtJugador2.setForeground(new java.awt.Color(0, 0, 0));
+        txtJugador2.setForeground(new java.awt.Color(51, 51, 51));
         txtJugador2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtJugador2.setText("Jugador 2");
         txtJugador2.setBorder(null);
         txtJugador2.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -123,8 +122,9 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
 
         txtJugador1.setBackground(new java.awt.Color(255, 107, 107));
         txtJugador1.setFont(new java.awt.Font("Montserrat", 1, 28)); // NOI18N
-        txtJugador1.setForeground(new java.awt.Color(0, 0, 0));
+        txtJugador1.setForeground(new java.awt.Color(51, 51, 51));
         txtJugador1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtJugador1.setText("Jugador 1");
         txtJugador1.setBorder(null);
         txtJugador1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -159,8 +159,9 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
 
         txtJugador3.setBackground(new java.awt.Color(111, 255, 233));
         txtJugador3.setFont(new java.awt.Font("Montserrat", 1, 28)); // NOI18N
-        txtJugador3.setForeground(new java.awt.Color(0, 0, 0));
+        txtJugador3.setForeground(new java.awt.Color(51, 51, 51));
         txtJugador3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtJugador3.setText("Jugador 3");
         txtJugador3.setBorder(null);
         txtJugador3.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -188,8 +189,9 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
 
         txtJugador4.setBackground(new java.awt.Color(77, 150, 255));
         txtJugador4.setFont(new java.awt.Font("Montserrat", 1, 28)); // NOI18N
-        txtJugador4.setForeground(new java.awt.Color(0, 0, 0));
+        txtJugador4.setForeground(new java.awt.Color(51, 51, 51));
         txtJugador4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtJugador4.setText("Jugador 4");
         txtJugador4.setBorder(null);
         txtJugador4.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -255,8 +257,9 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
 
         txtJugador5.setBackground(new java.awt.Color(255, 183, 221));
         txtJugador5.setFont(new java.awt.Font("Montserrat", 1, 28)); // NOI18N
-        txtJugador5.setForeground(new java.awt.Color(0, 0, 0));
+        txtJugador5.setForeground(new java.awt.Color(51, 51, 51));
         txtJugador5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtJugador5.setText("Jugador 5");
         txtJugador5.setBorder(null);
         txtJugador5.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -284,8 +287,9 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
 
         txtJugador6.setBackground(new java.awt.Color(204, 229, 255));
         txtJugador6.setFont(new java.awt.Font("Montserrat", 1, 28)); // NOI18N
-        txtJugador6.setForeground(new java.awt.Color(0, 0, 0));
+        txtJugador6.setForeground(new java.awt.Color(51, 51, 51));
         txtJugador6.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtJugador6.setText("Jugador 6");
         txtJugador6.setBorder(null);
         txtJugador6.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -341,27 +345,27 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
         List<Jugador> jugadores = new ArrayList<>();
         List<Integer> posicionesJugadores = new ArrayList<>();
 
-        if (!txtJugador1.getText().isEmpty()) {
+        if (!txtJugador1.getText().trim().equals("") && !txtJugador1.getText().trim().equals("Jugador 1")) {
             jugadores.add(jugador1);
             posicionesJugadores.add(1);
         }
-        if (!txtJugador2.getText().isEmpty()) {
+        if (!txtJugador2.getText().isEmpty() && !txtJugador2.getText().trim().equals("Jugador 2")) {
             jugadores.add(jugador2);
             posicionesJugadores.add(2);
         }
-        if (!txtJugador3.getText().isEmpty()) {
+        if (!txtJugador3.getText().isEmpty() && !txtJugador3.getText().trim().equals("Jugador 3")) {
             jugadores.add(jugador3);
             posicionesJugadores.add(3);
         }
-        if (!txtJugador4.getText().isEmpty()) {
+        if (!txtJugador4.getText().isEmpty() && !txtJugador4.getText().trim().equals("Jugador 4")) {
             jugadores.add(jugador4);
             posicionesJugadores.add(4);
         }
-        if (!txtJugador5.getText().isEmpty()) {
+        if (!txtJugador5.getText().isEmpty() && !txtJugador5.getText().trim().equals("Jugador 5")) {
             jugadores.add(jugador5);
             posicionesJugadores.add(5);
         }
-        if (!txtJugador6.getText().isEmpty()) {
+        if (!txtJugador6.getText().isEmpty() && !txtJugador6.getText().trim().equals("Jugador 6")) {
             jugadores.add(jugador6);
             posicionesJugadores.add(6);
         }
@@ -401,7 +405,7 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
 
     private void txtJugador4FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtJugador4FocusLost
         if (txtJugador4.getText().trim().equals("")) {
-            txtJugador4.setText("");
+            txtJugador4.setText("Jugador 4");
         }
     }//GEN-LAST:event_txtJugador4FocusLost
 
@@ -429,7 +433,7 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
 
     private void txtJugador3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtJugador3FocusLost
         if (txtJugador3.getText().trim().equals("")) {
-            txtJugador3.setText("");
+            txtJugador3.setText("Jugador 3");
         }
     }//GEN-LAST:event_txtJugador3FocusLost
 
@@ -458,7 +462,7 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
 
     private void txtJugador1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtJugador1FocusLost
         if (txtJugador1.getText().trim().equals("")) {
-            txtJugador1.setText("");
+            txtJugador1.setText("Jugador 1");
         }
     }//GEN-LAST:event_txtJugador1FocusLost
 
@@ -486,7 +490,7 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
 
     private void txtJugador2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtJugador2FocusLost
         if (txtJugador2.getText().trim().equals("")) {
-            txtJugador2.setText("");
+            txtJugador2.setText("Jugador 2");
         }
     }//GEN-LAST:event_txtJugador2FocusLost
 
@@ -516,7 +520,7 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
 
     private void txtJugador5FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtJugador5FocusLost
         if (txtJugador5.getText().trim().equals("")) {
-            txtJugador5.setText("");
+            txtJugador5.setText("Jugador 5");
         }
     }//GEN-LAST:event_txtJugador5FocusLost
 
@@ -544,7 +548,7 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
 
     private void txtJugador6FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtJugador6FocusLost
         if (txtJugador6.getText().trim().equals("")) {
-            txtJugador6.setText("");
+            txtJugador6.setText("Jugador 6");
         }
     }//GEN-LAST:event_txtJugador6FocusLost
 
@@ -608,8 +612,6 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel panelBoton;
     private javax.swing.JPanel panelFondo;
-    private javax.swing.ButtonGroup rbtJugadores;
-    private javax.swing.ButtonGroup rbtTamañoTablero;
     private javax.swing.JTextField txtJugador1;
     private javax.swing.JTextField txtJugador2;
     private javax.swing.JTextField txtJugador3;

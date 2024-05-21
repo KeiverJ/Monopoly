@@ -109,7 +109,7 @@ public class Jugador {
 
     public void restarDinero(int cantidad) {
         if (cantidad > dinero) {
-            System.out.println("¡El jugador " + numeroJugador + " se ha quedado en bancarrota!");
+            JOptionPane.showMessageDialog(null, "¡El jugador " + this.getNombre() + " se ha quedado en bancarrota!");
         } else {
             dinero -= cantidad;
         }
@@ -125,7 +125,6 @@ public class Jugador {
 
     public void sumarDinero(int cantidad) {
         dinero += cantidad;
-        System.out.println("Dia de pago para el jugador " + getNumeroJugador() + "! Has ganado $200.");
     }
 
     public int getCasillaActual() {
