@@ -22,6 +22,7 @@ public class Jugador {
     private int turnosEnCarcel;
     private boolean intentoDadosIgualesRealizado = false;
     private int intentosDadosIgualesFallidos = 0;
+    private boolean debeMoverseProximoTurno;
 
     public Jugador(String nombre, int numeroJugador, Color color, int x, int y) {
         this.color = color;
@@ -114,6 +115,14 @@ public class Jugador {
         }
     }
 
+    public boolean isDebeMoverseProximoTurno() {
+        return debeMoverseProximoTurno;
+    }
+
+    public void setDebeMoverseProximoTurno(boolean debeMoverseProximoTurno) {
+        this.debeMoverseProximoTurno = debeMoverseProximoTurno;
+    }
+
     public void sumarDinero(int cantidad) {
         dinero += cantidad;
         System.out.println("Dia de pago para el jugador " + getNumeroJugador() + "! Has ganado $200.");
@@ -171,6 +180,23 @@ public class Jugador {
                 propietario.sumarDinero(precioAlquiler);
                 JOptionPane.showMessageDialog(panelTablero, "Jugador " + this.getNombre() + " pago $" + precioAlquiler + " de renta a " + propietario.getNombre());
             }
+        }
+    }
+
+    public void venderPropiedadAJugador(int numeroCasilla, Jugador compradorJugador, int precioVenta) {
+        if (propiedades.contains(numeroCasilla)) {
+            if (compradorJugador.getDinero() >= precioVenta) {
+                propiedades.remove((Integer) numeroCasilla);
+                compradorJugador.getPropiedades().add(numeroCasilla);
+                registroPropiedad.put(numeroCasilla, compradorJugador.getNumeroJugador());
+                this.sumarDinero(precioVenta);
+                compradorJugador.restarDinero(precioVenta);
+                JOptionPane.showMessageDialog(panelTablero, "Propiedad vendida satisfactoriamente.");
+            } else {
+                JOptionPane.showMessageDialog(panelTablero, "El comprador no tiene suficiente dinero para comprar esta propiedad.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(panelTablero, "No puedes vender una propiedad que no posees.");
         }
     }
 

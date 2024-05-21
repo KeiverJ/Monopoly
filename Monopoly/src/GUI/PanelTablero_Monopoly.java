@@ -24,8 +24,6 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
     private int indiceJugadorActual = 0;
     public boolean dadoLanzado = false;
     private boolean puedeLanzarDado = true;
-    private int resultado1;
-    private int resultado2;
 
     public PanelTablero_Monopoly(List<Jugador> jugadores, List<Integer> posicionesJugadores) {
         this.jugadores = jugadores;
@@ -66,6 +64,8 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         lblDado2 = new javax.swing.JLabel();
         panelTerminar = new javax.swing.JPanel();
         lblTerminarPartida = new javax.swing.JLabel();
+        panelpropiedad = new javax.swing.JPanel();
+        lblComprarPropiedad = new javax.swing.JLabel();
         panelTablero = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -120,7 +120,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
             panelBotonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBotonLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblLanzarDado, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblLanzarDado, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelBotonLayout.setVerticalGroup(
             panelBotonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,7 +129,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
                 .addComponent(lblLanzarDado, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel2.add(panelBoton, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 180, 50));
+        jPanel2.add(panelBoton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 160, 50));
 
         txtaDescripcion.setEditable(false);
         txtaDescripcion.setColumns(20);
@@ -164,7 +164,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
             panelComprarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelComprarLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelComprarLayout.setVerticalGroup(
             panelComprarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,7 +173,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
                 .addComponent(lblComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel2.add(panelComprar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 370, 180, 50));
+        jPanel2.add(panelComprar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 160, 50));
 
         panelTurno.setBackground(new java.awt.Color(23, 162, 184));
 
@@ -201,7 +201,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
             panelTurnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTurnoLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblSiguienteTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblSiguienteTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelTurnoLayout.setVerticalGroup(
             panelTurnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,7 +210,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
                 .addComponent(lblSiguienteTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel2.add(panelTurno, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 440, 180, 50));
+        jPanel2.add(panelTurno, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, 160, 50));
         jPanel2.add(lblDado1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 530, 120, 120));
         jPanel2.add(lblDado2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 530, 120, 120));
 
@@ -250,6 +250,43 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         );
 
         jPanel2.add(panelTerminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 680, 180, 50));
+
+        panelpropiedad.setBackground(new java.awt.Color(40, 167, 69));
+
+        lblComprarPropiedad.setBackground(new java.awt.Color(255, 255, 255));
+        lblComprarPropiedad.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        lblComprarPropiedad.setForeground(new java.awt.Color(0, 0, 0));
+        lblComprarPropiedad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblComprarPropiedad.setText("Vende prop.");
+        lblComprarPropiedad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblComprarPropiedad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblComprarPropiedadMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblComprarPropiedadMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblComprarPropiedadMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelpropiedadLayout = new javax.swing.GroupLayout(panelpropiedad);
+        panelpropiedad.setLayout(panelpropiedadLayout);
+        panelpropiedadLayout.setHorizontalGroup(
+            panelpropiedadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelpropiedadLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblComprarPropiedad, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        panelpropiedadLayout.setVerticalGroup(
+            panelpropiedadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelpropiedadLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblComprarPropiedad, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel2.add(panelpropiedad, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 370, 160, 50));
 
         panelFondo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 40, 370, 750));
 
@@ -303,16 +340,19 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
     }//GEN-LAST:event_lblLanzarDadoMouseExited
 
     private void lblLanzarDadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLanzarDadoMousePressed
+        Jugador jugadorActual = getJugadorActual();
+
         if (!puedeLanzarDado) {
             return;
         }
 
         dadoLanzado = true;
+
         Dado dado1 = new Dado();
         Dado dado2 = new Dado();
 
-        resultado1 = dado1.getValorDado();
-        resultado2 = dado2.getValorDado();
+        int resultado1 = dado1.getValorDado();
+        int resultado2 = dado2.getValorDado();
 
         Timer timer = new Timer(50, null);
         timer.start();
@@ -333,10 +373,18 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
                     ImageIcon iconoResultado2 = dado2.obtenerImagenDadoRedimensionada(120, 120);
                     lblDado1.setIcon(iconoResultado1);
                     lblDado2.setIcon(iconoResultado2);
+                    tablero.manejarJugadorEnCarcel(jugadorActual, resultado1, resultado2);
 
-                    tablero.moverJugador(getJugadorActual(), resultado1, resultado2);
+                    if (!jugadorActual.isEncarcelado() && !jugadorActual.isDebeMoverseProximoTurno()) {
+                        tablero.moverJugador(jugadorActual, 2, 2);
+                    } else if (jugadorActual.isDebeMoverseProximoTurno()) {
+                        jugadorActual.setDebeMoverseProximoTurno(false);
+                        puedeLanzarDado = false;
+                        lblLanzarDado.setEnabled(false);
+                        lblSiguienteTurno.setEnabled(true);
+                    }
 
-                    if (resultado1 != resultado2) {
+                    if (dado1.getValorDado() != dado2.getValorDado()) {
                         puedeLanzarDado = false;
                         lblLanzarDado.setEnabled(false);
                         lblSiguienteTurno.setEnabled(true);
@@ -344,6 +392,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
                 }
             }
         });
+        actualizarDescripcionJugadorActual();
     }//GEN-LAST:event_lblLanzarDadoMousePressed
 
     private void lblComprarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblComprarMouseEntered
@@ -376,15 +425,10 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
     }//GEN-LAST:event_lblSiguienteTurnoMouseExited
 
     private void lblSiguienteTurnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSiguienteTurnoMousePressed
-        Jugador jugadorActual = getJugadorActual();
-
-        if (jugadorActual.isEncarcelado()) {
-            tablero.manejarJugadorEnCarcel(jugadorActual, 0, 0);
-            puedeLanzarDado = jugadorActual.isEncarcelado();
-            lblLanzarDado.setEnabled(puedeLanzarDado);
+        if (puedeLanzarDado) {
+            JOptionPane.showMessageDialog(this, "No puedes cambiar de turno hasta que hayas lanzado el dado.", "Turno no permitido", JOptionPane.WARNING_MESSAGE);
         } else {
             indiceJugadorActual = (indiceJugadorActual + 1) % jugadores.size();
-            actualizarDescripcionJugadorActual();
             puedeLanzarDado = true;
             lblLanzarDado.setEnabled(true);
             lblSiguienteTurno.setEnabled(false);
@@ -407,6 +451,18 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         main.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_lblTerminarPartidaMousePressed
+
+    private void lblComprarPropiedadMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblComprarPropiedadMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblComprarPropiedadMouseEntered
+
+    private void lblComprarPropiedadMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblComprarPropiedadMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblComprarPropiedadMouseExited
+
+    private void lblComprarPropiedadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblComprarPropiedadMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblComprarPropiedadMousePressed
 
     public Jugador obtenerJugadorPorNumero(int numeroJugador) {
         for (Jugador jugador : jugadores) {
@@ -455,6 +511,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCierre;
     public javax.swing.JLabel lblComprar;
+    public javax.swing.JLabel lblComprarPropiedad;
     private javax.swing.JLabel lblDado1;
     private javax.swing.JLabel lblDado2;
     public javax.swing.JLabel lblLanzarDado;
@@ -466,6 +523,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
     private javax.swing.JPanel panelTablero;
     private javax.swing.JPanel panelTerminar;
     private javax.swing.JPanel panelTurno;
+    private javax.swing.JPanel panelpropiedad;
     public javax.swing.JTextArea txtaDescripcion;
     // End of variables declaration//GEN-END:variables
 }

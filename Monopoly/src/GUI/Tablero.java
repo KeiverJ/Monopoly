@@ -157,9 +157,10 @@ public class Tablero extends JLayeredPane {
             if (opcion == JOptionPane.YES_OPTION) {
                 jugador.restarDinero(50);
                 jugador.setEncarcelado(false);
-                System.out.println(jugador.getNombre() + " ha pagado 50 para salir de la cárcel.");
+                jugador.setDebeMoverseProximoTurno(true);
+                JOptionPane.showMessageDialog(null, jugador.getNombre() + " ha pagado 50 para salir de la cárcel.");
             } else {
-                System.out.println(jugador.getNombre() + " no ha pagado para salir de la cárcel.");
+                JOptionPane.showMessageDialog(null, jugador.getNombre() + " no ha pagado para salir de la cárcel.");
                 jugador.setIntentoDadosIgualesRealizado(true);
             }
         } else {
@@ -169,50 +170,50 @@ public class Tablero extends JLayeredPane {
                     if (opcion == JOptionPane.YES_OPTION) {
                         jugador.restarDinero(50);
                         jugador.setEncarcelado(false);
-                        System.out.println(jugador.getNombre() + " ha pagado 50 para salir de la cárcel.");
-                        moverJugador(jugador, resultado1, resultado2);
+                        jugador.setDebeMoverseProximoTurno(true);
+                        JOptionPane.showMessageDialog(null, jugador.getNombre() + " ha pagado 50 para salir de la cárcel.");
                     } else {
-                        System.out.println(jugador.getNombre() + " no ha pagado para salir de la cárcel.");
+                        JOptionPane.showMessageDialog(null, jugador.getNombre() + " no ha pagado para salir de la cárcel.");
                         jugador.setIntentoDadosIgualesRealizado(true);
                     }
                 } else if (!jugador.isIntentoDadosIgualesRealizado()) {
                     if (resultado1 == resultado2) {
                         jugador.setEncarcelado(false);
-                        System.out.println(jugador.getNombre() + " ha salido de la cárcel con un doble!");
-                        moverJugador(jugador, resultado1, resultado2);
+                        jugador.setDebeMoverseProximoTurno(true);
+                        JOptionPane.showMessageDialog(null, jugador.getNombre() + " ha salido de la cárcel con un doble!");
                     } else {
                         jugador.incrementarTurnosEnCarcel();
                         if (jugador.getTurnosEnCarcel() >= 3) {
                             jugador.restarDinero(50);
                             jugador.setEncarcelado(false);
-                            System.out.println(jugador.getNombre() + " ha pagado 50 para salir de la cárcel.");
-                            moverJugador(jugador, resultado1, resultado2);
+                            jugador.setDebeMoverseProximoTurno(true);
+                            JOptionPane.showMessageDialog(null, jugador.getNombre() + " ha pagado 50 para salir de la cárcel.");
                         } else {
-                            System.out.println(jugador.getNombre() + " sigue en la cárcel. Turnos en cárcel: " + jugador.getTurnosEnCarcel());
+                            JOptionPane.showMessageDialog(null, jugador.getNombre() + " sigue en la cárcel. Turnos en cárcel: " + jugador.getTurnosEnCarcel());
                         }
                     }
                 } else {
                     if (!jugador.isIntentoDadosIgualesFallido()) {
                         if (resultado1 == resultado2) {
                             jugador.setEncarcelado(false);
-                            System.out.println(jugador.getNombre() + " ha salido de la cárcel con un doble!");
-                            moverJugador(jugador, resultado1, resultado2);
+                            jugador.setDebeMoverseProximoTurno(true);
+                            JOptionPane.showMessageDialog(null, jugador.getNombre() + " ha salido de la cárcel con un doble!");
                         } else {
                             jugador.incrementarTurnosEnCarcel();
                             if (jugador.getTurnosEnCarcel() >= 3) {
                                 jugador.restarDinero(50);
                                 jugador.setEncarcelado(false);
-                                System.out.println(jugador.getNombre() + " ha pagado 50 para salir de la cárcel.");
-                                moverJugador(jugador, resultado1, resultado2);
+                                jugador.setDebeMoverseProximoTurno(true);
+                                JOptionPane.showMessageDialog(null, jugador.getNombre() + " ha pagado 50 para salir de la cárcel.");
                             } else {
-                                System.out.println(jugador.getNombre() + " sigue en la cárcel. Turnos en cárcel: " + jugador.getTurnosEnCarcel());
+                                JOptionPane.showMessageDialog(null, jugador.getNombre() + " sigue en la cárcel. Turnos en cárcel: " + jugador.getTurnosEnCarcel());
                             }
                         }
                     } else {
                         jugador.restarDinero(50);
                         jugador.setEncarcelado(false);
-                        System.out.println(jugador.getNombre() + " ha pagado 50 para salir de la cárcel.");
-                        moverJugador(jugador, resultado1, resultado2);
+                        jugador.setDebeMoverseProximoTurno(true);
+                        JOptionPane.showMessageDialog(null, jugador.getNombre() + " ha pagado 50 para salir de la cárcel.");
                     }
                 }
             } else {
