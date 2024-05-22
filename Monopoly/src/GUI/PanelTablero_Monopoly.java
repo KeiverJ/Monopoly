@@ -216,8 +216,8 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         );
 
         jPanel2.add(panelTurno, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, 160, 50));
-        jPanel2.add(lblDado1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 530, 120, 120));
-        jPanel2.add(lblDado2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 530, 120, 120));
+        jPanel2.add(lblDado1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 470, 120, 120));
+        jPanel2.add(lblDado2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 470, 120, 120));
 
         panelTerminar.setBackground(new java.awt.Color(220, 53, 69));
 
@@ -243,9 +243,9 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         panelTerminar.setLayout(panelTerminarLayout);
         panelTerminarLayout.setHorizontalGroup(
             panelTerminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelTerminarLayout.createSequentialGroup()
-                .addComponent(lblTerminarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTerminarLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblTerminarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelTerminarLayout.setVerticalGroup(
             panelTerminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,7 +254,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
                 .addComponent(lblTerminarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel2.add(panelTerminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 680, 180, 50));
+        jPanel2.add(panelTerminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 630, 180, 50));
 
         panelpropiedad.setBackground(new java.awt.Color(40, 167, 69));
 
@@ -385,7 +385,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
                     tablero.manejarJugadorEncarcelado(jugadorActual, resultado1, resultado2);
 
                     if (!jugadorActual.isEncarcelado() && !jugadorActual.isDebeMoverseProximoTurno()) {
-                        tablero.moverJugador(jugadorActual, 1, 0);
+                        tablero.moverJugador(jugadorActual, resultado1, resultado2);
                     } else if (jugadorActual.isDebeMoverseProximoTurno()) {
                         jugadorActual.setDebeMoverseProximoTurno(false);
                         puedeLanzarDado = false;
@@ -398,10 +398,11 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
                         lblLanzarDado.setEnabled(false);
                         lblSiguienteTurno.setEnabled(true);
                     }
+
+                    actualizarDescripcionJugadorActual();
                 }
             }
         });
-        actualizarDescripcionJugadorActual();
     }//GEN-LAST:event_lblLanzarDadoMousePressed
 
     private void lblComprarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblComprarMouseEntered
@@ -449,6 +450,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
             puedeLanzarDado = true;
             lblLanzarDado.setEnabled(true);
             lblSiguienteTurno.setEnabled(false);
+            actualizarDescripcionJugadorActual();
         }
     }//GEN-LAST:event_lblSiguienteTurnoMousePressed
 
@@ -532,13 +534,24 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         descripcion.append("Propiedades: ");
 
         if (jugadorActual.getPropiedades().isEmpty()) {
-            descripcion.append("Ninguna");
+            descripcion.append("Ninguna\n");
         } else {
             descripcion.append("\n");
             for (int propiedad : jugadorActual.getPropiedades()) {
                 Casilla casilla = tablero.todasLasCasillas.get(propiedad);
-                descripcion.append(casilla.getNombre()).append("\n");
+                descripcion.append(casilla.getNombre())
+                        .append(" (Precio: $").append(casilla.getPrecio())
+                        .append(", Renta: $").append(casilla.getPrecioAlquiler()).append(")\n");
             }
+        }
+
+        Casilla casillaActual = tablero.todasLasCasillas.get(jugadorActual.getPosicion());
+        if (!tablero.casillasNoComprables.contains(casillaActual)) {
+            descripcion.append("\nCasilla Actual: ").append(casillaActual.getNombre())
+                    .append("\nPrecio: $").append(casillaActual.getPrecio())
+                    .append("\nRenta: $").append(casillaActual.getPrecioAlquiler());
+        } else {
+            descripcion.append("\nCasilla Actual: ").append(casillaActual.getNombre());
         }
 
         txtaDescripcion.setText(descripcion.toString());
@@ -577,8 +590,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
     public void setTablero(Tablero tablero) {
         this.tablero = tablero;
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel2;

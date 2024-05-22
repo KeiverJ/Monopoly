@@ -236,7 +236,7 @@ public class Jugador {
                 }
             }
             if (poseeTodas && grupoCasillas.contains(tablero.getTodasLasCasillas().get(numeroCasilla))) {
-                return precioAlquiler * 2;
+                return precioAlquiler * 3;
             }
         }
         return precioAlquiler;
