@@ -36,11 +36,11 @@ public class Tablero extends JLayeredPane {
     private void inicializarCasillas() {
         String[] nombresCasillas = {
             "Inicio", "Avenida Mediterránea", "Arca Comunal", "Avenida Báltica", "Impuesto sobre el ingreso", "Ferrocarril Reading",
-            "Avenida Oriental", "Casualidad", "Avenida Vermont", "Avenida Connecticut", "Cárcel visita",
+            "Avenida Oriental", "Casualidad", "Avenida Vermont", "Avenida Connecticut", "Salida de la cárcel",
             "Plaza St. Charles", "Compañía Eléctrica", "Avenida de los Estados", "Avenida Virginia", "Ferrocarril Pennsylvania",
             "Plaza St. James", "Arca Comunal", "Avenida Tennessee", "Avenida Nueva York", "Free Parking",
             "Avenida Kentucky", "Casualidad", "Avenida Indiana", "Avenida Illinois", "Ferrocarril B&O",
-            "Avenida Atlántico", "Avenida Ventnor", "Compañía de Agua", "Jardines Marvin", "Ir a la cárcel",
+            "Avenida Atlántico", "Avenida Ventnor", "Compañía de Agua", "Jardines Marvin", "Entrada a la cárcel",
             "Avenida Pacífico", "Avenida Carolina del Norte", "Arca Comunal", "Avenida Pennsylvania", "Ferrocarril Corto",
             "Casualidad", "Paseo del Parque", "Impuesto de Lujo", "El Muelle"
         };
@@ -152,20 +152,20 @@ public class Tablero extends JLayeredPane {
         fichaAnimada.start();
     }
 
-    public void manejarJugadorEnCarcel(Jugador jugador, int resultado1, int resultado2) {
-        if (resultado1 == 0 && resultado2 == 0) {
-            int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas pagar 50 para salir de la cárcel?", "Salir de la cárcel", JOptionPane.YES_NO_OPTION);
-            if (opcion == JOptionPane.YES_OPTION) {
-                jugador.restarDinero(50);
-                jugador.setEncarcelado(false);
-                jugador.setDebeMoverseProximoTurno(true);
-                JOptionPane.showMessageDialog(null, jugador.getNombre() + " ha pagado 50 para salir de la cárcel.");
+    public void manejarJugador(Jugador jugador, int resultado1, int resultado2) {
+        if (jugador.isEncarcelado()) {
+            if (resultado1 == 0 && resultado2 == 0) {
+                int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas pagar 50 para salir de la cárcel?", "Salir de la cárcel", JOptionPane.YES_NO_OPTION);
+                if (opcion == JOptionPane.YES_OPTION) {
+                    jugador.restarDinero(50);
+                    jugador.setEncarcelado(false);
+                    jugador.setDebeMoverseProximoTurno(true);
+                    JOptionPane.showMessageDialog(null, jugador.getNombre() + " ha pagado 50 para salir de la cárcel.");
+                } else {
+                    JOptionPane.showMessageDialog(null, jugador.getNombre() + " no ha pagado para salir de la cárcel.");
+                    jugador.setIntentoDadosIgualesRealizado(true);
+                }
             } else {
-                JOptionPane.showMessageDialog(null, jugador.getNombre() + " no ha pagado para salir de la cárcel.");
-                jugador.setIntentoDadosIgualesRealizado(true);
-            }
-        } else {
-            if (jugador.isEncarcelado()) {
                 if (!jugador.isIntentoDadosIgualesRealizado() && !jugador.isIntentoDadosIgualesFallido()) {
                     int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas pagar 50 para salir de la cárcel?", "Salir de la cárcel", JOptionPane.YES_NO_OPTION);
                     if (opcion == JOptionPane.YES_OPTION) {
@@ -217,17 +217,21 @@ public class Tablero extends JLayeredPane {
                         JOptionPane.showMessageDialog(null, jugador.getNombre() + " ha pagado 50 para salir de la cárcel.");
                     }
                 }
-            } else {
-                moverJugador(jugador, resultado1, resultado2);
             }
+        } else {
+            moverJugador(jugador, resultado1, resultado2);
+        }
+
+        if (!jugador.isEncarcelado() && !jugador.isDebeMoverseProximoTurno()) {
+            moverJugador(jugador, resultado1, resultado2);
         }
     }
 
     private void manejarCasillaEspecial(Jugador jugador, Casilla casilla) {
         switch (casilla.getNombre()) {
-            case "Cárcel/Visita":
+            case "Salida de la cárcel":
                 break;
-            case "Ir a la cárcel":
+            case "Entrada a la cárcel":
                 jugador.setPosicion(10);
                 jugador.setEncarcelado(true);
                 break;
@@ -239,13 +243,13 @@ public class Tablero extends JLayeredPane {
                 int impuestoIngreso = 200;
                 jugador.restarDinero(impuestoIngreso);
                 impuestosAcumulados += impuestoIngreso;
-                JOptionPane.showMessageDialog(null, jugador.getNombre() + " ha pagado " + impuestoIngreso + " de impuestos sobre el ingreso.", "Impuestos Pagados", JOptionPane.INFORMATION_MESSAGE);
+                System.out.println(jugador.getNombre() + " ha pagado " + impuestoIngreso + " de impuestos sobre el ingreso.");
                 break;
             case "Impuesto de Lujo":
                 int impuestoLujo = 100;
                 jugador.restarDinero(impuestoLujo);
                 impuestosAcumulados += impuestoLujo;
-                JOptionPane.showMessageDialog(null, jugador.getNombre() + " ha pagado " + impuestoLujo + " de impuesto de lujo.", "Impuestos Pagados", JOptionPane.INFORMATION_MESSAGE);
+                System.out.println(jugador.getNombre() + " ha pagado " + impuestoLujo + " de impuesto de lujo.");
                 break;
             default:
                 break;

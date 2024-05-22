@@ -177,7 +177,7 @@ public class Jugador {
                 Jugador propietario = panelTablero.obtenerJugadorPorNumero(propietarioNumero);
                 this.restarDinero(precioAlquiler);
                 propietario.sumarDinero(precioAlquiler);
-                JOptionPane.showMessageDialog(panelTablero, "Jugador " + this.getNombre() + " pago $" + precioAlquiler + " de renta a " + propietario.getNombre());
+                System.out.println("Jugador " + this.getNombre() + " pago $" + precioAlquiler + " de renta a " + propietario.getNombre());
             }
         }
     }

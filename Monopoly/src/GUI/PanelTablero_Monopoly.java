@@ -374,22 +374,11 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
                     ImageIcon iconoResultado2 = dado2.obtenerImagenDadoRedimensionada(120, 120);
                     lblDado1.setIcon(iconoResultado1);
                     lblDado2.setIcon(iconoResultado2);
-                    tablero.manejarJugadorEnCarcel(jugadorActual, resultado1, resultado2);
+                    tablero.manejarJugador(jugadorActual, 30, 0);
 
-                    if (!jugadorActual.isEncarcelado() && !jugadorActual.isDebeMoverseProximoTurno()) {
-                        tablero.moverJugador(jugadorActual, resultado1, resultado2);
-                    } else if (jugadorActual.isDebeMoverseProximoTurno()) {
-                        jugadorActual.setDebeMoverseProximoTurno(false);
-                        puedeLanzarDado = false;
-                        lblLanzarDado.setEnabled(false);
-                        lblSiguienteTurno.setEnabled(true);
-                    }
-
-                    if (dado1.getValorDado() != dado2.getValorDado()) {
-                        puedeLanzarDado = false;
-                        lblLanzarDado.setEnabled(false);
-                        lblSiguienteTurno.setEnabled(true);
-                    }
+                    puedeLanzarDado = false;
+                    lblLanzarDado.setEnabled(false);
+                    lblSiguienteTurno.setEnabled(true);
                 }
             }
         });
@@ -465,7 +454,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         Jugador vendedor = getJugadorActual();
         String nombrePropiedad = tablero.seleccionarPropiedad(vendedor);
         if (nombrePropiedad == null) {
-            return; 
+            return;
         }
 
         int numeroPropiedad = -1;
@@ -489,7 +478,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
 
         int precioVenta = tablero.obtenerPrecioVenta();
         if (precioVenta == -1) {
-            return; 
+            return;
         }
 
         vendedor.venderPropiedadAJugador(numeroPropiedad, comprador, precioVenta);
