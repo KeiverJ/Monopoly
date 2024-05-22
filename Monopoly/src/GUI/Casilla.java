@@ -94,24 +94,58 @@ public class Casilla extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (this.numero == 1 || this.numero == 3 || this.numero == 4) {
+
+        if (this.numero == 1 || this.numero == 3) {
             g.drawRect(0, 0, this.getWidth(), 15);
             g.setColor(Color.BLUE);
             g.fillRect(0, 0, this.getWidth(), 15);
         }
+
+        if (this.numero == 5 || this.numero == 15 || this.numero == 25 || this.numero == 35) {
+            g.drawRect(0, 0, this.getWidth(), 15);
+            g.setColor(Color.GRAY);
+            g.fillRect(0, 0, this.getWidth(), 15);
+        }
+
         if (this.numero == 6 || this.numero == 8 || this.numero == 9) {
             g.drawRect(0, 0, this.getWidth(), 15);
             g.setColor(Color.PINK);
             g.fillRect(0, 0, this.getWidth(), 15);
         }
+
         if (this.numero == 11 || this.numero == 13 || this.numero == 14) {
             g.drawRect(0, 0, this.getWidth(), 15);
-            g.setColor(Color.ORANGE);
+            g.setColor(Color.MAGENTA);
             g.fillRect(0, 0, this.getWidth(), 15);
         }
-        if (this.numero == 16 || this.numero == 17 || this.numero == 19) {
+
+        if (this.numero == 16 || this.numero == 18 || this.numero == 19) {
+            g.drawRect(0, 0, this.getWidth(), 15);
+            g.setColor(Color.RED);
+            g.fillRect(0, 0, this.getWidth(), 15);
+        }
+
+        if (this.numero == 21 || this.numero == 23 || this.numero == 24) {
+            g.drawRect(0, 0, this.getWidth(), 15);
+            g.setColor(Color.YELLOW);
+            g.fillRect(0, 0, this.getWidth(), 15);
+        }
+
+        if (this.numero == 26 || this.numero == 27 || this.numero == 29) {
             g.drawRect(0, 0, this.getWidth(), 15);
             g.setColor(Color.GREEN);
+            g.fillRect(0, 0, this.getWidth(), 15);
+        }
+
+        if (this.numero == 31 || this.numero == 32 || this.numero == 34) {
+            g.drawRect(0, 0, this.getWidth(), 15);
+            g.setColor(Color.CYAN);
+            g.fillRect(0, 0, this.getWidth(), 15);
+        }
+
+        if (this.numero == 37 || this.numero == 39) {
+            g.drawRect(0, 0, this.getWidth(), 15);
+            g.setColor(Color.MAGENTA);
             g.fillRect(0, 0, this.getWidth(), 15);
         }
     }

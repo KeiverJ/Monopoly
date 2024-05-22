@@ -35,14 +35,14 @@ public class Tablero extends JLayeredPane {
 
     private void inicializarCasillas() {
         String[] nombresCasillas = {
-            "Inicio", "Avenida Mediterránea", "Arca Comunal", "Avenida Báltica", "Impuesto sobre el ingreso", "Ferrocarril Reading",
-            "Avenida Oriental", "Casualidad", "Avenida Vermont", "Avenida Connecticut", "Salida de la cárcel",
+            "Inicio", "Avenida Mediterránea", "Avanzas", "Avenida Báltica", "Impuesto sobre el ingreso", "Ferrocarril Reading",
+            "Avenida Oriental", "Retrocedes", "Avenida Vermont", "Avenida Connecticut", "Salida de la cárcel",
             "Plaza St. Charles", "Compañía Eléctrica", "Avenida de los Estados", "Avenida Virginia", "Ferrocarril Pennsylvania",
-            "Plaza St. James", "Arca Comunal", "Avenida Tennessee", "Avenida Nueva York", "Free Parking",
-            "Avenida Kentucky", "Casualidad", "Avenida Indiana", "Avenida Illinois", "Ferrocarril B&O",
+            "Plaza St. James", "Retrocedes", "Avenida Tennessee", "Avenida Nueva York", "Free Parking",
+            "Avenida Kentucky", "Avanzas", "Avenida Indiana", "Avenida Illinois", "Ferrocarril B&O",
             "Avenida Atlántico", "Avenida Ventnor", "Compañía de Agua", "Jardines Marvin", "Entrada a la cárcel",
-            "Avenida Pacífico", "Avenida Carolina del Norte", "Arca Comunal", "Avenida Pennsylvania", "Ferrocarril Corto",
-            "Casualidad", "Paseo del Parque", "Impuesto de Lujo", "El Muelle"
+            "Avenida Pacífico", "Avenida Carolina del Norte", "Retrocedes", "Avenida Pennsylvania", "Ferrocarril Corto",
+            "Avanzas", "Paseo del Parque", "Impuesto de Lujo", "El Muelle"
         };
 
         int[][] coordenadasCasillas = {
@@ -64,50 +64,89 @@ public class Tablero extends JLayeredPane {
             }
         }
 
-        todasLasCasillas.get(1).setPrecio(60);
-        todasLasCasillas.get(3).setPrecio(60);
-        todasLasCasillas.get(6).setPrecio(100);
-        todasLasCasillas.get(8).setPrecio(100);
-        todasLasCasillas.get(9).setPrecio(120);
-        todasLasCasillas.get(11).setPrecio(140);
-        todasLasCasillas.get(13).setPrecio(140);
-        todasLasCasillas.get(14).setPrecio(160);
-        todasLasCasillas.get(16).setPrecio(180);
-        todasLasCasillas.get(18).setPrecio(180);
-        todasLasCasillas.get(19).setPrecio(200);
-        todasLasCasillas.get(21).setPrecio(220);
-        todasLasCasillas.get(23).setPrecio(220);
-        todasLasCasillas.get(24).setPrecio(240);
-        todasLasCasillas.get(26).setPrecio(260);
-        todasLasCasillas.get(27).setPrecio(260);
-        todasLasCasillas.get(28).setPrecio(280);
-        todasLasCasillas.get(31).setPrecio(300);
-        todasLasCasillas.get(32).setPrecio(300);
-        todasLasCasillas.get(34).setPrecio(320);
-        todasLasCasillas.get(37).setPrecio(350);
-        todasLasCasillas.get(39).setPrecio(400);
+        todasLasCasillas.get(1).setPrecio(3200);
         todasLasCasillas.get(1).setPrecioAlquiler(2);
+
+        todasLasCasillas.get(3).setPrecio(60);
         todasLasCasillas.get(3).setPrecioAlquiler(4);
+
+        todasLasCasillas.get(6).setPrecio(100);
         todasLasCasillas.get(6).setPrecioAlquiler(6);
+
+        todasLasCasillas.get(8).setPrecio(100);
         todasLasCasillas.get(8).setPrecioAlquiler(6);
+
+        todasLasCasillas.get(9).setPrecio(120);
         todasLasCasillas.get(9).setPrecioAlquiler(8);
+
+        todasLasCasillas.get(11).setPrecio(140);
         todasLasCasillas.get(11).setPrecioAlquiler(10);
+
+        todasLasCasillas.get(13).setPrecio(140);
         todasLasCasillas.get(13).setPrecioAlquiler(10);
+
+        todasLasCasillas.get(14).setPrecio(160);
         todasLasCasillas.get(14).setPrecioAlquiler(12);
+
+        todasLasCasillas.get(16).setPrecio(180);
         todasLasCasillas.get(16).setPrecioAlquiler(14);
+
+        todasLasCasillas.get(18).setPrecio(180);
         todasLasCasillas.get(18).setPrecioAlquiler(14);
+
+        todasLasCasillas.get(19).setPrecio(200);
         todasLasCasillas.get(19).setPrecioAlquiler(16);
+
+        todasLasCasillas.get(21).setPrecio(220);
         todasLasCasillas.get(21).setPrecioAlquiler(18);
+
+        todasLasCasillas.get(23).setPrecio(220);
         todasLasCasillas.get(23).setPrecioAlquiler(18);
+
+        todasLasCasillas.get(24).setPrecio(240);
         todasLasCasillas.get(24).setPrecioAlquiler(20);
+
+        todasLasCasillas.get(26).setPrecio(260);
         todasLasCasillas.get(26).setPrecioAlquiler(22);
+
+        todasLasCasillas.get(27).setPrecio(260);
         todasLasCasillas.get(27).setPrecioAlquiler(22);
+
+        todasLasCasillas.get(28).setPrecio(280);
         todasLasCasillas.get(28).setPrecioAlquiler(24);
+
+        todasLasCasillas.get(31).setPrecio(300);
         todasLasCasillas.get(31).setPrecioAlquiler(26);
+
+        todasLasCasillas.get(32).setPrecio(300);
         todasLasCasillas.get(32).setPrecioAlquiler(26);
+
+        todasLasCasillas.get(34).setPrecio(320);
         todasLasCasillas.get(34).setPrecioAlquiler(28);
+
+        todasLasCasillas.get(37).setPrecio(350);
         todasLasCasillas.get(37).setPrecioAlquiler(35);
+
+        todasLasCasillas.get(39).setPrecio(400);
         todasLasCasillas.get(39).setPrecioAlquiler(50);
+
+        todasLasCasillas.get(5).setPrecio(200);
+        todasLasCasillas.get(5).setPrecioAlquiler(25);
+
+        todasLasCasillas.get(15).setPrecio(200);
+        todasLasCasillas.get(15).setPrecioAlquiler(25);
+
+        todasLasCasillas.get(25).setPrecio(200);
+        todasLasCasillas.get(25).setPrecioAlquiler(25);
+
+        todasLasCasillas.get(35).setPrecio(200);
+        todasLasCasillas.get(35).setPrecioAlquiler(25);
+
+        todasLasCasillas.get(12).setPrecio(150);
+        todasLasCasillas.get(12).setPrecioAlquiler(20);
+
+        todasLasCasillas.get(28).setPrecio(150);
+        todasLasCasillas.get(28).setPrecioAlquiler(20);
 
         ImageIcon monopolyIcon = new ImageIcon(getClass().getResource("/resources/logoMonopoly.png"));
         JLabel lblMonopolyImage = new JLabel(monopolyIcon);
@@ -146,13 +185,39 @@ public class Tablero extends JLayeredPane {
 
                 jugadorActual.pagarRentaEnCasilla(casillaActual.numero, casillaActual.getPrecioAlquiler());
                 panelTablero.actualizarDescripcionJugadorActual();
+                verificarFinDelJuego();
+
             }
         });
 
         fichaAnimada.start();
     }
 
-    public void manejarJugador(Jugador jugador, int resultado1, int resultado2) {
+    private void moverJugadorRetroceso(Jugador jugador, int cantidad) {
+        int viejaPos = jugador.getPosicion();
+        int nuevaPos = (viejaPos - cantidad + 40) % 40;
+        Casilla nuevaCasilla = todasLasCasillas.get(nuevaPos);
+
+        jugador.setPosicion(nuevaPos);
+        nuevaCasilla.agregarJugador(jugador);
+        actualizarJugadores();
+
+        manejarCasillaEspecial(jugador, nuevaCasilla);
+    }
+
+    private void moverJugadorAvance(Jugador jugador, int cantidad) {
+        int viejaPos = jugador.getPosicion();
+        int nuevaPos = (viejaPos + cantidad) % 40;
+        Casilla nuevaCasilla = todasLasCasillas.get(nuevaPos);
+
+        jugador.setPosicion(nuevaPos);
+        nuevaCasilla.agregarJugador(jugador);
+        actualizarJugadores();
+
+        manejarCasillaEspecial(jugador, nuevaCasilla);
+    }
+
+    public void manejarJugadorEncarcelado(Jugador jugador, int resultado1, int resultado2) {
         if (jugador.isEncarcelado()) {
             if (resultado1 == 0 && resultado2 == 0) {
                 int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas pagar 50 para salir de la cárcel?", "Salir de la cárcel", JOptionPane.YES_NO_OPTION);
@@ -215,15 +280,12 @@ public class Tablero extends JLayeredPane {
                         jugador.setEncarcelado(false);
                         jugador.setDebeMoverseProximoTurno(true);
                         JOptionPane.showMessageDialog(null, jugador.getNombre() + " ha pagado 50 para salir de la cárcel.");
+                        verificarFinDelJuego();
                     }
                 }
             }
         } else {
-            moverJugador(jugador, resultado1, resultado2);
-        }
-
-        if (!jugador.isEncarcelado() && !jugador.isDebeMoverseProximoTurno()) {
-            moverJugador(jugador, resultado1, resultado2);
+            // 
         }
     }
 
@@ -234,6 +296,8 @@ public class Tablero extends JLayeredPane {
             case "Entrada a la cárcel":
                 jugador.setPosicion(10);
                 jugador.setEncarcelado(true);
+                JOptionPane.showMessageDialog(null, jugador.getNombre() + " ha sido enviado a la cárcel.");
+                verificarFinDelJuego();
                 break;
             case "Free Parking":
                 jugador.sumarDinero(impuestosAcumulados);
@@ -243,16 +307,34 @@ public class Tablero extends JLayeredPane {
                 int impuestoIngreso = 200;
                 jugador.restarDinero(impuestoIngreso);
                 impuestosAcumulados += impuestoIngreso;
-                System.out.println(jugador.getNombre() + " ha pagado " + impuestoIngreso + " de impuestos sobre el ingreso.");
+                JOptionPane.showMessageDialog(null, jugador.getNombre() + " ha pagado " + impuestoIngreso + " de impuestos sobre el ingreso.");
+                verificarFinDelJuego();
                 break;
             case "Impuesto de Lujo":
                 int impuestoLujo = 100;
                 jugador.restarDinero(impuestoLujo);
                 impuestosAcumulados += impuestoLujo;
-                System.out.println(jugador.getNombre() + " ha pagado " + impuestoLujo + " de impuesto de lujo.");
+                JOptionPane.showMessageDialog(null, jugador.getNombre() + " ha pagado " + impuestoLujo + " de impuesto de lujo.");
+                verificarFinDelJuego();
                 break;
+            case "Retrocedes":
+                moverJugadorRetroceso(jugador, 7);
+                JOptionPane.showMessageDialog(null, jugador.getNombre() + " retrocede 7 casillas.");
+                break;
+            case "Avanzas":
+                moverJugadorAvance(jugador, 3);
+                JOptionPane.showMessageDialog(null, jugador.getNombre() + " avanza 3 casillas.");
             default:
                 break;
+        }
+    }
+
+    private void verificarFinDelJuego() {
+        for (Jugador jugador : panelTablero.getJugadores()) {
+            if (jugador.getDinero() <= 0) {
+                panelTablero.finalizarJuego(jugador);
+                break;
+            }
         }
     }
 

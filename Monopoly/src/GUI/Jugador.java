@@ -155,7 +155,17 @@ public class Jugador {
         intentosDadosIgualesFallidos++;
     }
 
+    private void verificarFinDelJuego() {
+        if (dinero <= 0) {
+            panelTablero.finalizarJuego(this);
+        }
+    }
+
     public void comprarPropiedadEnCasilla(int numeroCasilla, int precio) {
+        if (panelTablero.isPartidaAcabada()) {
+            JOptionPane.showMessageDialog(null, "El juego ha terminado, si quiere seguir jugando inicie otra partida.");
+            return;
+        }
         if (registroPropiedad.containsKey(numeroCasilla)) {
             JOptionPane.showMessageDialog(panelTablero, "Esta propiedad ya ha sido comprada por alguien. No puedes comprarla aquí.");
         } else {
@@ -164,6 +174,7 @@ public class Jugador {
                 registroPropiedad.put(numeroCasilla, this.getNumeroJugador());
                 restarDinero(precio);
                 JOptionPane.showMessageDialog(panelTablero, "Propiedad comprada satisfactoriamente.");
+                verificarFinDelJuego();
             } else {
                 JOptionPane.showMessageDialog(panelTablero, "No tienes suficiente dinero para comprar esta propiedad.");
             }
@@ -177,12 +188,17 @@ public class Jugador {
                 Jugador propietario = panelTablero.obtenerJugadorPorNumero(propietarioNumero);
                 this.restarDinero(precioAlquiler);
                 propietario.sumarDinero(precioAlquiler);
-                System.out.println("Jugador " + this.getNombre() + " pago $" + precioAlquiler + " de renta a " + propietario.getNombre());
+                verificarFinDelJuego();
+                JOptionPane.showMessageDialog(null, "Jugador " + this.getNombre() + " pagó $" + precioAlquiler + " de renta a " + propietario.getNombre());
             }
         }
     }
 
     public void venderPropiedadAJugador(int numeroCasilla, Jugador compradorJugador, int precioVenta) {
+        if (panelTablero.isPartidaAcabada()) {
+            JOptionPane.showMessageDialog(null, "El juego ha terminado, si quiere seguir jugando inicie otra partida.");
+            return;
+        }
         if (propiedades.contains(numeroCasilla)) {
             if (compradorJugador.getDinero() >= precioVenta) {
                 propiedades.remove((Integer) numeroCasilla);

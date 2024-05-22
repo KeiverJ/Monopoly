@@ -8,7 +8,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -25,6 +24,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
     private int indiceJugadorActual = 0;
     public boolean dadoLanzado = false;
     private boolean puedeLanzarDado = true;
+    private boolean partidaAcabada = false;
 
     public PanelTablero_Monopoly(List<Jugador> jugadores, List<Integer> posicionesJugadores) {
         this.jugadores = jugadores;
@@ -39,6 +39,9 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         panelFondo.setOpaque(false);
         setBackground(new Color(0, 0, 0, 0));
         lblSiguienteTurno.setEnabled(false);
+
+        Jugador.registroPropiedad.clear();
+        partidaAcabada = false;
     }
 
     private void init2() {
@@ -66,7 +69,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         panelTerminar = new javax.swing.JPanel();
         lblTerminarPartida = new javax.swing.JLabel();
         panelpropiedad = new javax.swing.JPanel();
-        lblComprarPropiedad = new javax.swing.JLabel();
+        lblVenderPropiedad = new javax.swing.JLabel();
         panelTablero = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -254,21 +257,21 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
 
         panelpropiedad.setBackground(new java.awt.Color(40, 167, 69));
 
-        lblComprarPropiedad.setBackground(new java.awt.Color(255, 255, 255));
-        lblComprarPropiedad.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
-        lblComprarPropiedad.setForeground(new java.awt.Color(0, 0, 0));
-        lblComprarPropiedad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblComprarPropiedad.setText("Vende prop.");
-        lblComprarPropiedad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblComprarPropiedad.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblVenderPropiedad.setBackground(new java.awt.Color(255, 255, 255));
+        lblVenderPropiedad.setFont(new java.awt.Font("Montserrat", 1, 20)); // NOI18N
+        lblVenderPropiedad.setForeground(new java.awt.Color(0, 0, 0));
+        lblVenderPropiedad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblVenderPropiedad.setText("Vende prop.");
+        lblVenderPropiedad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblVenderPropiedad.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblComprarPropiedadMouseEntered(evt);
+                lblVenderPropiedadMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblComprarPropiedadMouseExited(evt);
+                lblVenderPropiedadMouseExited(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblComprarPropiedadMousePressed(evt);
+                lblVenderPropiedadMousePressed(evt);
             }
         });
 
@@ -278,13 +281,13 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
             panelpropiedadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelpropiedadLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblComprarPropiedad, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblVenderPropiedad, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelpropiedadLayout.setVerticalGroup(
             panelpropiedadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelpropiedadLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblComprarPropiedad, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblVenderPropiedad, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel2.add(panelpropiedad, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 370, 160, 50));
@@ -341,6 +344,10 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
     }//GEN-LAST:event_lblLanzarDadoMouseExited
 
     private void lblLanzarDadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLanzarDadoMousePressed
+        if (isPartidaAcabada()) {
+            JOptionPane.showMessageDialog(null, "El juego ha terminado, si quiere seguir jugando inicie otra partida.");
+            return;
+        }
         Jugador jugadorActual = getJugadorActual();
 
         if (!puedeLanzarDado) {
@@ -374,11 +381,22 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
                     ImageIcon iconoResultado2 = dado2.obtenerImagenDadoRedimensionada(120, 120);
                     lblDado1.setIcon(iconoResultado1);
                     lblDado2.setIcon(iconoResultado2);
-                    tablero.manejarJugador(jugadorActual, 30, 0);
+                    tablero.manejarJugadorEncarcelado(jugadorActual, resultado1, resultado2);
 
-                    puedeLanzarDado = false;
-                    lblLanzarDado.setEnabled(false);
-                    lblSiguienteTurno.setEnabled(true);
+                    if (!jugadorActual.isEncarcelado() && !jugadorActual.isDebeMoverseProximoTurno()) {
+                        tablero.moverJugador(jugadorActual, 1, 0);
+                    } else if (jugadorActual.isDebeMoverseProximoTurno()) {
+                        jugadorActual.setDebeMoverseProximoTurno(false);
+                        puedeLanzarDado = false;
+                        lblLanzarDado.setEnabled(false);
+                        lblSiguienteTurno.setEnabled(true);
+                    }
+
+                    if (dado1.getValorDado() != dado2.getValorDado()) {
+                        puedeLanzarDado = false;
+                        lblLanzarDado.setEnabled(false);
+                        lblSiguienteTurno.setEnabled(true);
+                    }
                 }
             }
         });
@@ -394,6 +412,10 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
     }//GEN-LAST:event_lblComprarMouseExited
 
     private void lblComprarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblComprarMousePressed
+        if (isPartidaAcabada()) {
+            JOptionPane.showMessageDialog(null, "El juego ha terminado, si quiere seguir jugando inicie otra partida.");
+            return;
+        }
         Jugador jugadorActual = getJugadorActual();
         if (jugadorActual != null) {
             Casilla casillaActual = tablero.todasLasCasillas.get(jugadorActual.getPosicion());
@@ -415,6 +437,10 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
     }//GEN-LAST:event_lblSiguienteTurnoMouseExited
 
     private void lblSiguienteTurnoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSiguienteTurnoMousePressed
+        if (isPartidaAcabada()) {
+            JOptionPane.showMessageDialog(null, "El juego ha terminado, si quiere seguir jugando inicie otra partida.");
+            return;
+        }
         if (puedeLanzarDado) {
             JOptionPane.showMessageDialog(this, "No puedes cambiar de turno hasta que hayas lanzado el dado.", "Turno no permitido", JOptionPane.WARNING_MESSAGE);
         } else {
@@ -442,15 +468,19 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_lblTerminarPartidaMousePressed
 
-    private void lblComprarPropiedadMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblComprarPropiedadMouseEntered
+    private void lblVenderPropiedadMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVenderPropiedadMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_lblComprarPropiedadMouseEntered
+    }//GEN-LAST:event_lblVenderPropiedadMouseEntered
 
-    private void lblComprarPropiedadMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblComprarPropiedadMouseExited
+    private void lblVenderPropiedadMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVenderPropiedadMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_lblComprarPropiedadMouseExited
+    }//GEN-LAST:event_lblVenderPropiedadMouseExited
 
-    private void lblComprarPropiedadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblComprarPropiedadMousePressed
+    private void lblVenderPropiedadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVenderPropiedadMousePressed
+        if (isPartidaAcabada()) {
+            JOptionPane.showMessageDialog(null, "El juego ha terminado, si quiere seguir jugando inicie otra partida.");
+            return;
+        }
         Jugador vendedor = getJugadorActual();
         String nombrePropiedad = tablero.seleccionarPropiedad(vendedor);
         if (nombrePropiedad == null) {
@@ -482,7 +512,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         }
 
         vendedor.venderPropiedadAJugador(numeroPropiedad, comprador, precioVenta);
-    }//GEN-LAST:event_lblComprarPropiedadMousePressed
+    }//GEN-LAST:event_lblVenderPropiedadMousePressed
 
     public Jugador obtenerJugadorPorNumero(int numeroJugador) {
         for (Jugador jugador : jugadores) {
@@ -513,6 +543,16 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         txtaDescripcion.setText(descripcion.toString());
     }
 
+    public void finalizarJuego(Jugador perdedor) {
+        partidaAcabada = true;
+        String mensaje = "El juego ha terminado. " + perdedor.getNombre() + " se ha quedado sin dinero.";
+        JOptionPane.showMessageDialog(null, mensaje);
+        lblComprar.setEnabled(false);
+        lblSiguienteTurno.setEnabled(false);
+        lblLanzarDado.setEnabled(false);
+        lblVenderPropiedad.setEnabled(false);
+    }
+
     public Jugador getJugadorActual() {
         return jugadores.get(indiceJugadorActual);
     }
@@ -525,18 +565,22 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         this.jugadores = jugadores;
     }
 
+    public boolean isPartidaAcabada() {
+        return partidaAcabada;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCierre;
     public javax.swing.JLabel lblComprar;
-    public javax.swing.JLabel lblComprarPropiedad;
     private javax.swing.JLabel lblDado1;
     private javax.swing.JLabel lblDado2;
     public javax.swing.JLabel lblLanzarDado;
     public javax.swing.JLabel lblSiguienteTurno;
     public javax.swing.JLabel lblTerminarPartida;
+    public javax.swing.JLabel lblVenderPropiedad;
     private javax.swing.JPanel panelBoton;
     private javax.swing.JPanel panelComprar;
     private javax.swing.JPanel panelFondo;
