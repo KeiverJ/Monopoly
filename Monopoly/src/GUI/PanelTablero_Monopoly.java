@@ -42,6 +42,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
 
         Jugador.registroPropiedad.clear();
         partidaAcabada = false;
+        lblComprar.setEnabled(false);
 
     }
 

@@ -210,9 +210,13 @@ public class Tablero extends JLayeredPane {
                 jugador.setPosicion(nuevaPos);
                 nuevaCasilla.agregarJugador(jugador);
                 actualizarJugadores();
-
                 Jugador jugadorActual = panelTablero.getJugadorActual();
                 Casilla casillaActual = todasLasCasillas.get(jugadorActual.getPosicion());
+                if (casillasNoComprables.contains(casillaActual)) {
+                    panelTablero.lblComprar.setEnabled(false);
+                } else {
+                    panelTablero.lblComprar.setEnabled(true);
+                }
 
                 manejarCasillaEspecial(jugadorActual, casillaActual);
 
@@ -223,6 +227,7 @@ public class Tablero extends JLayeredPane {
             }
         });
 
+        panelTablero.lblComprar.setEnabled(false);
         fichaAnimada.start();
     }
 
