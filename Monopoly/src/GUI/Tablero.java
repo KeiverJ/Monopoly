@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package GUI;
 
 import java.awt.Color;
@@ -9,12 +13,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
 
+/**
+ *
+ * @author keiver
+ */
 public class Tablero extends JLayeredPane {
 
     public ArrayList<Casilla> todasLasCasillas = new ArrayList<>();
@@ -47,6 +56,14 @@ public class Tablero extends JLayeredPane {
                 System.out.println("- " + casilla.getNombre());
             }
         }
+    }
+
+    public Map<Color, List<Casilla>> getGruposPorColor() {
+        return gruposPorColor;
+    }
+
+    public List<Casilla> getTodasLasCasillas() {
+        return todasLasCasillas;
     }
 
     private void inicializarCasillas() {

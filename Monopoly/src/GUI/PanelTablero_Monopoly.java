@@ -570,6 +570,15 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         return partidaAcabada;
     }
 
+    public Tablero getTablero() {
+        return tablero;
+    }
+
+    public void setTablero(Tablero tablero) {
+        this.tablero = tablero;
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel2;

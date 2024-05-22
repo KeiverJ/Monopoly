@@ -1,10 +1,20 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package GUI;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 
+/**
+ *
+ * @author keiver
+ */
 public class Jugador {
 
     private String nombre;
@@ -34,6 +44,24 @@ public class Jugador {
         this.panelTablero = panelTablero;
         this.encarcelado = false;
         this.turnosEnCarcel = -1;
+    }
+
+    private static final Map<Color, String> colorNames = new HashMap<>();
+
+    static {
+        colorNames.put(Color.BLUE, "Azul");
+        colorNames.put(Color.GRAY, "Gris");
+        colorNames.put(Color.PINK, "Rosa");
+        colorNames.put(Color.MAGENTA, "Magenta");
+        colorNames.put(Color.RED, "Rojo");
+        colorNames.put(Color.YELLOW, "Amarillo");
+        colorNames.put(Color.GREEN, "Verde");
+        colorNames.put(Color.CYAN, "Cian");
+        colorNames.put(Color.WHITE, "Blanco");
+    }
+
+    public static String getColorName(Color color) {
+        return colorNames.getOrDefault(color, "Color desconocido");
     }
 
     public void setPanelTablero(PanelTablero_Monopoly panelTablero) {
@@ -174,6 +202,7 @@ public class Jugador {
                 registroPropiedad.put(numeroCasilla, this.getNumeroJugador());
                 restarDinero(precio);
                 JOptionPane.showMessageDialog(panelTablero, "Propiedad comprada satisfactoriamente.");
+                verificarPropiedadCompleta();
                 verificarFinDelJuego();
             } else {
                 JOptionPane.showMessageDialog(panelTablero, "No tienes suficiente dinero para comprar esta propiedad.");
@@ -186,10 +215,47 @@ public class Jugador {
             int propietarioNumero = registroPropiedad.get(numeroCasilla);
             if (propietarioNumero != this.numeroJugador) {
                 Jugador propietario = panelTablero.obtenerJugadorPorNumero(propietarioNumero);
-                this.restarDinero(precioAlquiler);
-                propietario.sumarDinero(precioAlquiler);
+                int alquilerAjustado = propietario.calcularRentaAjustada(numeroCasilla, precioAlquiler);
+                this.restarDinero(alquilerAjustado);
+                propietario.sumarDinero(alquilerAjustado);
                 verificarFinDelJuego();
-                JOptionPane.showMessageDialog(null, "Jugador " + this.getNombre() + " pagó $" + precioAlquiler + " de renta a " + propietario.getNombre());
+                JOptionPane.showMessageDialog(null, "Jugador " + this.getNombre() + " pagó $" + alquilerAjustado + " de renta a " + propietario.getNombre());
+            }
+        }
+    }
+
+    public int calcularRentaAjustada(int numeroCasilla, int precioAlquiler) {
+        Tablero tablero = panelTablero.getTablero();
+        for (Map.Entry<Color, List<Casilla>> entry : tablero.getGruposPorColor().entrySet()) {
+            List<Casilla> grupoCasillas = entry.getValue();
+            boolean poseeTodas = true;
+            for (Casilla casilla : grupoCasillas) {
+                if (!propiedades.contains(tablero.getTodasLasCasillas().indexOf(casilla))) {
+                    poseeTodas = false;
+                    break;
+                }
+            }
+            if (poseeTodas && grupoCasillas.contains(tablero.getTodasLasCasillas().get(numeroCasilla))) {
+                return precioAlquiler * 2;
+            }
+        }
+        return precioAlquiler;
+    }
+
+    private void verificarPropiedadCompleta() {
+        Tablero tablero = panelTablero.getTablero();
+        for (Map.Entry<Color, List<Casilla>> entry : tablero.getGruposPorColor().entrySet()) {
+            List<Casilla> grupoCasillas = entry.getValue();
+            boolean poseeTodas = true;
+            for (Casilla casilla : grupoCasillas) {
+                if (!propiedades.contains(tablero.getTodasLasCasillas().indexOf(casilla))) {
+                    poseeTodas = false;
+                    break;
+                }
+            }
+            if (poseeTodas) {
+                String nombreColor = getColorName(entry.getKey());
+                JOptionPane.showMessageDialog(panelTablero, "¡El jugador " + this.getNombre() + " ha adquirido todas las propiedades del grupo " + nombreColor + "!");
             }
         }
     }
