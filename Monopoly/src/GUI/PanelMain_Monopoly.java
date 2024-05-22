@@ -340,47 +340,51 @@ public class PanelMain_Monopoly extends javax.swing.JFrame {
             try {
                 int dineroInicial = Integer.parseInt(dineroInicialStr);
 
-                Jugador jugador1 = new Jugador(txtJugador1.getText(), 1, Color.BLACK, 730, 730, dineroInicial);
-                Jugador jugador2 = new Jugador(txtJugador2.getText(), 2, Color.BLUE, 730, 730, dineroInicial);
-                Jugador jugador3 = new Jugador(txtJugador3.getText(), 3, Color.CYAN, 730, 730, dineroInicial);
-                Jugador jugador4 = new Jugador(txtJugador4.getText(), 4, Color.MAGENTA, 730, 730, dineroInicial);
-                Jugador jugador5 = new Jugador(txtJugador5.getText(), 5, Color.ORANGE, 730, 730, dineroInicial);
-                Jugador jugador6 = new Jugador(txtJugador6.getText(), 6, Color.LIGHT_GRAY, 730, 730, dineroInicial);
+                if (dineroInicial > 99) {
+                    Jugador jugador1 = new Jugador(txtJugador1.getText(), 1, Color.BLACK, 730, 730, dineroInicial);
+                    Jugador jugador2 = new Jugador(txtJugador2.getText(), 2, Color.BLUE, 730, 730, dineroInicial);
+                    Jugador jugador3 = new Jugador(txtJugador3.getText(), 3, Color.CYAN, 730, 730, dineroInicial);
+                    Jugador jugador4 = new Jugador(txtJugador4.getText(), 4, Color.MAGENTA, 730, 730, dineroInicial);
+                    Jugador jugador5 = new Jugador(txtJugador5.getText(), 5, Color.ORANGE, 730, 730, dineroInicial);
+                    Jugador jugador6 = new Jugador(txtJugador6.getText(), 6, Color.LIGHT_GRAY, 730, 730, dineroInicial);
 
-                List<Jugador> jugadores = new ArrayList<>();
-                List<Integer> posicionesJugadores = new ArrayList<>();
+                    List<Jugador> jugadores = new ArrayList<>();
+                    List<Integer> posicionesJugadores = new ArrayList<>();
 
-                if (!txtJugador1.getText().trim().equals("") && !txtJugador1.getText().trim().equals("Jugador 1")) {
-                    jugadores.add(jugador1);
-                    posicionesJugadores.add(1);
-                }
-                if (!txtJugador2.getText().isEmpty() && !txtJugador2.getText().trim().equals("Jugador 2")) {
-                    jugadores.add(jugador2);
-                    posicionesJugadores.add(2);
-                }
-                if (!txtJugador3.getText().isEmpty() && !txtJugador3.getText().trim().equals("Jugador 3")) {
-                    jugadores.add(jugador3);
-                    posicionesJugadores.add(3);
-                }
-                if (!txtJugador4.getText().isEmpty() && !txtJugador4.getText().trim().equals("Jugador 4")) {
-                    jugadores.add(jugador4);
-                    posicionesJugadores.add(4);
-                }
-                if (!txtJugador5.getText().isEmpty() && !txtJugador5.getText().trim().equals("Jugador 5")) {
-                    jugadores.add(jugador5);
-                    posicionesJugadores.add(5);
-                }
-                if (!txtJugador6.getText().isEmpty() && !txtJugador6.getText().trim().equals("Jugador 6")) {
-                    jugadores.add(jugador6);
-                    posicionesJugadores.add(6);
-                }
+                    if (!txtJugador1.getText().trim().equals("") && !txtJugador1.getText().trim().equals("Jugador 1")) {
+                        jugadores.add(jugador1);
+                        posicionesJugadores.add(1);
+                    }
+                    if (!txtJugador2.getText().isEmpty() && !txtJugador2.getText().trim().equals("Jugador 2")) {
+                        jugadores.add(jugador2);
+                        posicionesJugadores.add(2);
+                    }
+                    if (!txtJugador3.getText().isEmpty() && !txtJugador3.getText().trim().equals("Jugador 3")) {
+                        jugadores.add(jugador3);
+                        posicionesJugadores.add(3);
+                    }
+                    if (!txtJugador4.getText().isEmpty() && !txtJugador4.getText().trim().equals("Jugador 4")) {
+                        jugadores.add(jugador4);
+                        posicionesJugadores.add(4);
+                    }
+                    if (!txtJugador5.getText().isEmpty() && !txtJugador5.getText().trim().equals("Jugador 5")) {
+                        jugadores.add(jugador5);
+                        posicionesJugadores.add(5);
+                    }
+                    if (!txtJugador6.getText().isEmpty() && !txtJugador6.getText().trim().equals("Jugador 6")) {
+                        jugadores.add(jugador6);
+                        posicionesJugadores.add(6);
+                    }
 
-                if (jugadores.size() >= 2) {
-                    PanelTablero_Monopoly panelTablero = new PanelTablero_Monopoly(jugadores, posicionesJugadores);
-                    panelTablero.setVisible(true);
-                    this.dispose();
+                    if (jugadores.size() >= 2) {
+                        PanelTablero_Monopoly panelTablero = new PanelTablero_Monopoly(jugadores, posicionesJugadores);
+                        panelTablero.setVisible(true);
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Debe ingresar al menos dos jugadores con nombres válidos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(this, "Debe ingresar al menos dos jugadores con nombres válidos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "La cantidad de dinero inicial debe ser mayor a 100.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "Por favor, ingrese un valor numérico válido.", "Error", JOptionPane.ERROR_MESSAGE);
