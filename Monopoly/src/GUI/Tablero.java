@@ -6,6 +6,8 @@ import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -17,6 +19,8 @@ public class Tablero extends JLayeredPane {
 
     public ArrayList<Casilla> todasLasCasillas = new ArrayList<>();
     public ArrayList<Casilla> casillasNoComprables = new ArrayList<>();
+    public HashMap<Color, List<Casilla>> gruposPorColor = new HashMap<>();
+
     private PanelTablero_Monopoly panelTablero;
     private int impuestosAcumulados = 0;
     private JugadoresOverlay jugadoresOverlay;
@@ -31,11 +35,23 @@ public class Tablero extends JLayeredPane {
         jugadoresOverlay = new JugadoresOverlay(panelTablero, this);
         jugadoresOverlay.setBounds(0, 0, 800, 800);
         this.add(jugadoresOverlay, JLayeredPane.DRAG_LAYER);
+        imprimirGruposDeColores();
+
+    }
+
+    public void imprimirGruposDeColores() {
+        for (Color color : gruposPorColor.keySet()) {
+            System.out.println("Grupo de color: " + color);
+            List<Casilla> casillas = gruposPorColor.get(color);
+            for (Casilla casilla : casillas) {
+                System.out.println("- " + casilla.getNombre());
+            }
+        }
     }
 
     private void inicializarCasillas() {
         String[] nombresCasillas = {
-            "Inicio", "Avenida Mediterránea", "Avanzas", "Avenida Báltica", "Impuesto sobre el ingreso", "Ferrocarril Reading",
+            "Inicio", "Avenida Mediterránea", "Avanza", "Avenida Báltica", "Impuesto sobre el ingreso", "Ferrocarril Reading",
             "Avenida Oriental", "Retrocedes", "Avenida Vermont", "Avenida Connecticut", "Salida de la cárcel",
             "Plaza St. Charles", "Compañía Eléctrica", "Avenida de los Estados", "Avenida Virginia", "Ferrocarril Pennsylvania",
             "Plaza St. James", "Retrocedes", "Avenida Tennessee", "Avenida Nueva York", "Free Parking",
@@ -64,7 +80,19 @@ public class Tablero extends JLayeredPane {
             }
         }
 
-        todasLasCasillas.get(1).setPrecio(3200);
+        //GRUPO COLORES:
+        gruposPorColor.put(Color.BLUE, Arrays.asList(todasLasCasillas.get(1), todasLasCasillas.get(3)));
+        gruposPorColor.put(Color.GRAY, Arrays.asList(todasLasCasillas.get(5), todasLasCasillas.get(15), todasLasCasillas.get(25), todasLasCasillas.get(35)));
+        gruposPorColor.put(Color.PINK, Arrays.asList(todasLasCasillas.get(6), todasLasCasillas.get(8), todasLasCasillas.get(9)));
+        gruposPorColor.put(Color.MAGENTA, Arrays.asList(todasLasCasillas.get(11), todasLasCasillas.get(13), todasLasCasillas.get(14)));
+        gruposPorColor.put(Color.RED, Arrays.asList(todasLasCasillas.get(16), todasLasCasillas.get(18), todasLasCasillas.get(19)));
+        gruposPorColor.put(Color.YELLOW, Arrays.asList(todasLasCasillas.get(21), todasLasCasillas.get(23), todasLasCasillas.get(24)));
+        gruposPorColor.put(Color.GREEN, Arrays.asList(todasLasCasillas.get(26), todasLasCasillas.get(27), todasLasCasillas.get(29)));
+        gruposPorColor.put(Color.CYAN, Arrays.asList(todasLasCasillas.get(31), todasLasCasillas.get(32), todasLasCasillas.get(34)));
+        gruposPorColor.put(Color.WHITE, Arrays.asList(todasLasCasillas.get(37), todasLasCasillas.get(39)));
+
+        //PRECIO PROPIEDAD/ALQUILER
+        todasLasCasillas.get(1).setPrecio(40);
         todasLasCasillas.get(1).setPrecioAlquiler(2);
 
         todasLasCasillas.get(3).setPrecio(60);

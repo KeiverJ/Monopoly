@@ -15,6 +15,7 @@ public class Casilla extends JPanel {
 
     int numero;
     private String nombre;
+    private Color color;
     JLabel etiquetaNombre;
     static int totalCasillas = 0;
     private int precio;
@@ -26,6 +27,7 @@ public class Casilla extends JPanel {
     public Casilla(int xCoord, int yCoord, int width, int height, String etiqueta) {
         numero = totalCasillas;
         totalCasillas++;
+        this.color = color;
         setBorder(new LineBorder(new Color(0, 0, 0)));
         setBounds(xCoord, yCoord, width, height);
         nombre = etiqueta;
@@ -52,6 +54,14 @@ public class Casilla extends JPanel {
 
     public int getPrecio() {
         return precio;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     public String getNombre() {
@@ -145,7 +155,7 @@ public class Casilla extends JPanel {
 
         if (this.numero == 37 || this.numero == 39) {
             g.drawRect(0, 0, this.getWidth(), 15);
-            g.setColor(Color.MAGENTA);
+            g.setColor(Color.WHITE);
             g.fillRect(0, 0, this.getWidth(), 15);
         }
     }
