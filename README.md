@@ -17,6 +17,5 @@
 <div align="center">
     <div style="display: inline-block; margin: 10px;">
         <img src="https://github.com/KeiverJ/Monopoly/assets/160792532/3d9eda8e-fc5f-4438-86af-6092a0261231" width="45%" />
-        <p>Tablero 10x10</p>
     </div>
 </div>
