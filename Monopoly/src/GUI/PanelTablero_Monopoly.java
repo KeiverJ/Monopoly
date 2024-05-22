@@ -419,6 +419,10 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "El juego ha terminado, si quiere seguir jugando inicie otra partida.");
             return;
         }
+        if (!lblComprar.isEnabled()){
+            JOptionPane.showMessageDialog(null, "No puedes comprar en este momento.");
+            return;
+        }
         Jugador jugadorActual = getJugadorActual();
         if (jugadorActual != null) {
             Casilla casillaActual = tablero.todasLasCasillas.get(jugadorActual.getPosicion());
@@ -531,7 +535,7 @@ public class PanelTablero_Monopoly extends javax.swing.JFrame {
         Jugador jugadorActual = getJugadorActual();
         StringBuilder descripcion = new StringBuilder();
         descripcion.append("Nombre: ").append(jugadorActual.getNombre()).append("\n");
-        descripcion.append("Dinero: $").append(jugadorActual.getDinero()).append("\n");
+        descripcion.append("Dinero: $").append(jugadorActual.getDineroInicial()).append("\n");
         descripcion.append("Propiedades: ");
 
         if (jugadorActual.getPropiedades().isEmpty()) {

@@ -26,7 +26,7 @@ public class Jugador {
     private ArrayList<int[]> locacionesJugadores = new ArrayList<>();
     private int casillaActual = 1;
     private ArrayList<Integer> propiedades = new ArrayList<>();
-    private int dinero = 3200;
+    private int dineroInicial;
     private PanelTablero_Monopoly panelTablero;
     private boolean encarcelado;
     private int turnosEnCarcel;
@@ -34,9 +34,10 @@ public class Jugador {
     private int intentosDadosIgualesFallidos = 0;
     private boolean debeMoverseProximoTurno;
 
-    public Jugador(String nombre, int numeroJugador, Color color, int x, int y) {
+    public Jugador(String nombre, int numeroJugador, Color color, int x, int y, int dineroInicial) {
         this.color = color;
         this.nombre = nombre;
+        this.dineroInicial = dineroInicial;
         this.x = x;
         this.y = y;
         this.posicion = posicion;
@@ -112,8 +113,13 @@ public class Jugador {
         return propiedades;
     }
 
-    public int getDinero() {
-        return dinero;
+
+    public int getDineroInicial() {
+        return dineroInicial;
+    }
+
+    public void setDineroInicial(int dineroInicial) {
+        this.dineroInicial = dineroInicial;
     }
 
     public boolean isEncarcelado() {
@@ -136,10 +142,10 @@ public class Jugador {
     }
 
     public void restarDinero(int cantidad) {
-        if (cantidad > dinero) {
+        if (cantidad > dineroInicial) {
             JOptionPane.showMessageDialog(null, "¡El jugador " + this.getNombre() + " se ha quedado en bancarrota!");
         } else {
-            dinero -= cantidad;
+            dineroInicial -= cantidad;
         }
     }
 
@@ -152,7 +158,7 @@ public class Jugador {
     }
 
     public void sumarDinero(int cantidad) {
-        dinero += cantidad;
+        dineroInicial += cantidad;
     }
 
     public int getCasillaActual() {
@@ -184,7 +190,7 @@ public class Jugador {
     }
 
     private void verificarFinDelJuego() {
-        if (dinero <= 0) {
+        if (dineroInicial <= 0) {
             panelTablero.finalizarJuego(this);
         }
     }
@@ -197,7 +203,7 @@ public class Jugador {
         if (registroPropiedad.containsKey(numeroCasilla)) {
             JOptionPane.showMessageDialog(panelTablero, "Esta propiedad ya ha sido comprada por alguien. No puedes comprarla aquí.");
         } else {
-            if (dinero >= precio) {
+            if (dineroInicial >= precio) {
                 propiedades.add(numeroCasilla);
                 registroPropiedad.put(numeroCasilla, this.getNumeroJugador());
                 restarDinero(precio);
@@ -266,7 +272,7 @@ public class Jugador {
             return;
         }
         if (propiedades.contains(numeroCasilla)) {
-            if (compradorJugador.getDinero() >= precioVenta) {
+            if (compradorJugador.getDineroInicial() >= precioVenta) {
                 propiedades.remove((Integer) numeroCasilla);
                 compradorJugador.getPropiedades().add(numeroCasilla);
                 registroPropiedad.put(numeroCasilla, compradorJugador.getNumeroJugador());

@@ -369,7 +369,7 @@ public class Tablero extends JLayeredPane {
 
     private void verificarFinDelJuego() {
         for (Jugador jugador : panelTablero.getJugadores()) {
-            if (jugador.getDinero() <= 0) {
+            if (jugador.getDineroInicial() <= 0) {
                 panelTablero.finalizarJuego(jugador);
                 break;
             }
